@@ -22,7 +22,7 @@
 					<div class="input-group pt-2 col-7">
 						<input type="text" class="form-control" placeholder="아이디">
 						<div class="input-group-append">
-					 		<button class="btn btn-primary" type="button">중복확인</button>
+					 		<button class="btn btn-secondary" type="button">중복확인</button>
 						</div>
 					</div>
 				</div>
@@ -45,12 +45,34 @@
 					<div class="input-group pt-2 col-7">
 						<input type="text" id="address" class="form-control" placeholder="주소" readonly>
 						<div class="input-group-append">
-					 		<button class="btn btn-primary" type="button" onclick="findAddr()">주소 검색</button>
+					 		<button class="btn btn-secondary" type="button" onclick="findAddr()">주소 검색</button>
 						</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center">
+					<div class="pt-2 col-7">
+						<input type="text" class="form-control" placeholder="이메일">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center">
+					<div class="pt-2 col-7">
+						<input type="tel" class="form-control" placeholder="휴대전화번호">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center align-items-center">
+					<div class="pt-4 col-7">
+						<button type="button" class="form-control btn btn-primary">회원가입</button>
+					</div>
+				</div>
+				<div >
+					<div class="d-flex justify-content-center pt-4 col-7" style="margin:0 auto;">
+						<label>회원이신가요?</label> &nbsp;&nbsp;&nbsp;
+						<a href="/user/login-view">로그인</a>
 					</div>
 				</div>
 			</div>
 		</section>
+		<hr>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />	
 	
 
