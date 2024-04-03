@@ -13,22 +13,27 @@
 <body>
 
 	<c:import url="/WEB-INF/jsp/include/header.jsp" />
+	<div class="d-flex justify-content-end">
+	<div>
+		<a href="#">로그아웃</a>
+	</div>
+	</div>
 	<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 	<section>
 		
 		<div class="slider__wrap">
             <div class="slider__img">
                 <div class="slider__inner">
-                    <div class="slider s1"><img src="/static/img/main1.jpg" class="img-responsive" alt="이미지4"></div>
-                    <div class="slider s2"><img src="/static/img/main2.jpg" class="img-responsive" alt="이미지10"></div>
-                    <div class="slider s3"><img src="/static/img/main3.jpg" class="img-responsive" alt="이미지9"></div>
-                    <div class="slider s4"><img src="/static/img/main4.jpg" class="img-responsive" alt="이미지7"></div>
-                    <div class="slider s5"><img src="/static/img/main5.jpg" class="img-responsive" alt="이미지3"></div>
+                    <div class="slider s1"><img src="/static/img/main1.jpg" class="img-responsive"></div>
+                    <div class="slider s2"><img src="/static/img/main2.jpg" class="img-responsive"></div>
+                    <div class="slider s3"><img src="/static/img/main3.jpg" class="img-responsive"></div>
+                    <div class="slider s4"><img src="/static/img/main4.jpg" class="img-responsive"></div>
+                    <div class="slider s5"><img src="/static/img/main5.jpg" class="img-responsive"></div>
                 </div>
             </div>
             <div class="slider__btn">
-                <a href="#" class="prev" title="왼쪽이미지">prev</a>
-                <a href="#" class="next" title="다음이미지">next</a>
+                <a href="#" class="prev">prev</a>
+                <a href="#" class="next">next</a>
             </div>
             <div class="slider__dot">
                 <!-- 
