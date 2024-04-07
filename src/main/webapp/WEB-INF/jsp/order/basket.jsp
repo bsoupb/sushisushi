@@ -13,7 +13,9 @@
 <body>
 	
 	<div id="wrap">
-		<c:import url="/WEB-INF/jsp/include/header.jsp" />
+		<header class="d-flex justify-content-center align-items-center">
+			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
+		</header>
 		
 		<nav class="nav-content d-flex justify-content-center align-items-center">
 			<ul class="nav nav-fill w-100">

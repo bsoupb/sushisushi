@@ -14,20 +14,35 @@
 
 	<div id="wrap">
 
-		<c:import url="/WEB-INF/jsp/include/header.jsp" />
+		<header class="d-flex justify-content-center align-items-center">
+			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
+		</header>
+		
+		<c:if test="${not empty userId}">
+			<div class="d-flex justify-content-end">
+				<div class="mr-3">${userLoginId }님</div>
+				<a href="/user/logout">로그아웃</a>
+			</div>
+		</c:if>
 		
 		<section class="main">
 		<div class="container-sb">
 			<div style="border:1px solid #ccc; padding:10px; margin:10px;">
 				<div class="pb-4">
-					<textarea class="form-control border-0" rows="4"></textarea>
+					<textarea class="form-control border-0" rows="4" id="contentsInput"></textarea>
+				</div>
+				<div class="d-flex">
+					<div class="d-flex align-items-center">
+						<div class="mr-3">별점</div>
+					</div>
+					<div><input type="text" onkeyup="imsi(this)" class="form-control col-5" id="pointInput" maxlength=3></div>
 				</div>
 				<div class="d-flex justify-content-between">
 					<div>
 						<label for="img">
 						<i class="bi bi-file-image" style="font-size:25px;"><input type="file" id="img" style="display:none"></i>
 					</div>
-					<button type="button" class="btn btn-primary btn-sm">업로드</button>
+					<button type="button" class="btn btn-primary btn-sm" id="uploadBtn">업로드</button>
 				</div>
 			</div>
 	
@@ -72,8 +87,64 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 
 <script>
+	
+	var prev = "";
+	var regexp = /^\d*(\.\d{0,1})?$/;
+	
+	function imsi(obj){
+		if(obj.value.search(regexp)==-1){
+			obj.value = prev;
+		}
+		else {
+			prev = obj.value;
+		}
+	}
+
 
 	$(document).ready(function(){
+		
+		$("#uploadBtn").on("click", function(){
+
+			var contents = $("#contentsInput").val();
+			var file = $("#img")[0].files[0];
+			var point = $("#pointInput").val();
+			
+			if(contents == ""){
+				alert("리뷰 내용을 입력해 주세요");
+				return;
+			}
+			
+			if(point == ""){
+				alert("별점을 입력해 주세요");
+				return;
+			}
+			
+			let formData = new FormData();
+			formData.append("contents", contents);
+			formData.append("imagePath", file);
+			formData.append("point", point);
+			
+			$.ajax({
+				type:"post"
+				, url:"/review/create"
+				, data:formData
+				, enctype:"multipart/form-data"
+				, processData:false
+				, contentType:false
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else{
+						alert("리뷰 작성 실패");
+					}
+				}
+				, error:function(){
+					alert("리뷰 작성 에러");
+				}
+			});
+			
+		});
+		
 		
 		$("#moreIcon").on("click", function(){
 		

@@ -17,22 +17,24 @@
 	<div class="container-sb pt-5">
 		<h2 class="text-center pb-2">로그인</h2>
 		
-		<div class="d-flex justify-content-center">
-			<div class="pt-2 col-7">
-				<input type="text" class="form-control" id="loginIdInput" placeholder="아이디">
+		<form id="loginForm">
+			<div class="d-flex justify-content-center">
+				<div class="pt-2 col-7">
+					<input type="text" class="form-control" id="loginIdInput" placeholder="아이디">
+				</div>
 			</div>
-		</div>
-		<div class="d-flex justify-content-center">
-			<div class="pt-2 col-7">
-				<input type="password" id="passwordInput" class="form-control" placeholder="비밀번호">
+			<div class="d-flex justify-content-center">
+				<div class="pt-2 col-7">
+					<input type="password" id="passwordInput" class="form-control" placeholder="비밀번호">
+				</div>
 			</div>
-		</div>
-		<div class="d-flex justify-content-center">
-			<div class="pt-4 col-7">
-				<button type="button" id="loginBtn" class="btn btn-primary form-control">로그인</button>
+			<div class="d-flex justify-content-center">
+				<div class="pt-4 col-7">
+					<button type="submit" id="loginBtn" class="btn btn-primary form-control">로그인</button>
+				</div>
 			</div>
-		</div>
-
+		</form>
+		
 		<div class="d-flex justify-content-center pt-4 col-7" style="margin:0 auto;">
 			<label>회원이 아니신가요?</label> &nbsp;&nbsp;&nbsp;
 			<a href="/user/join-view">회원가입</a>
@@ -50,7 +52,9 @@
 	
 	$(document).ready(function(){
 		
-		$("#loginBtn").on("click", function(){
+		$("#loginForm").on("submit", function(e){
+			
+			e.preventDefault();
 			
 			var id = $("#loginIdInput").val();
 			var password = $("#passwordInput").val();

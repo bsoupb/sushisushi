@@ -13,11 +13,14 @@
 <body>
 
 	<c:import url="/WEB-INF/jsp/include/header.jsp" />
-	<div class="d-flex justify-content-end">
-	<div>
-		<a href="#">로그아웃</a>
-	</div>
-	</div>
+	
+	<c:if test="${not empty userId}">
+		<div class="d-flex justify-content-end">
+			<div class="mr-3">${userLoginId }님</div>
+			<a href="/user/logout">로그아웃</a>
+		</div>
+	</c:if>
+	
 	<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 	<section>
 		

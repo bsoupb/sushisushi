@@ -132,6 +132,13 @@ $(document).ready(function(){
 		var isDuplicateId = true;
 		var isDuplicateCheck = false;
 		
+		$("loginIdInput").on("input", function(){
+			isDuplicateId = true;
+			isDuplicateCheck = false;
+			$("#available").addClass("d-none");
+			$("#dis").addClass("d-none");
+		});
+		
 		$("#isDuplicateBtn").on("click", function(){
 			
 			var id = $("#loginIdInput").val();
