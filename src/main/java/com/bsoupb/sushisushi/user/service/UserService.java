@@ -43,4 +43,8 @@ public class UserService {
 		return userRepository.findByLoginIdAndPassword(loginId, encryptPassword);
 	}
 	
+	public User getUserById(int id) {
+		return userRepository.findById(id);
+	}
+	
 }

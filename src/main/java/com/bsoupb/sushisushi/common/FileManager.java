@@ -10,14 +10,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManager {
 
-	public final static String FILE_UPLOAD_PATH = "";
+	public final static String FILE_UPLOAD_PATH = "C:\\Users\\qotn0\\OneDrive\\바탕 화면\\BAE\\sushisushi\\upload";
 
 	public static String saveFile(int userId, MultipartFile file){
+		
 		
 		if(file == null) {
 			return null;
 		}
-
+		
 		String directoryName = "/" + userId + "_" + System.currentTimeMillis();
 
 		String directoryPath = FILE_UPLOAD_PATH + directoryName;
@@ -40,6 +41,40 @@ public class FileManager {
 		}
 		
 		return "/images" + directoryName + "/" + file.getOriginalFilename();
+	}
+	
+	public static boolean removeFile(String filePath) {
+		
+		if(filePath == null) {
+			return false;
+		}
+		
+		String fullFilePath = FILE_UPLOAD_PATH + filePath.replace("/images", "");
+		
+		Path path = Paths.get(fullFilePath);
+		
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		Path dirPath = path.getParent();
+		
+		if(Files.exists(dirPath)) {
+			try {
+				Files.delete(dirPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		return true;
+		
 	}
 	
 }

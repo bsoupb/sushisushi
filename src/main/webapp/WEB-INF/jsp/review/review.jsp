@@ -48,20 +48,21 @@
 	
 			<!-- 카드 -->
 			<c:forEach var="review" items="${reviewList}" >
-			<div class="card">
-				<div style="border:1px solid; padding:10px; margin:10px;">
-					<div class="d-flex">
-						<div>Hong</div>
-						<i class="bi bi-three-dots font-25 moreIcon" data-review-id="${review.reviewId}" data-toggle="modal" data-target="#moreModal"></i>
+			<div class="card border-0">
+				<div style="border:1px solid #ccc; padding:10px; margin:10px;">
+					<div class="d-flex justify-content-between">
+						<div class="pb-3" style="font-size:25px">${review.loginId }</div>
+						<i class="bi bi-three-dots pb-3 pl-3 font-25 more-icon" data-review-id="${review.reviewId}" data-toggle="modal" data-target="#moreModal"></i>
 					</div>
-					<img src="${review.imagePath}" class="img-responsive">
-					<div id="point">${review.point}</div>
-					<div id="contents">${review.contents}</div>
-				</div>
-				<!-- /카드 -->
-				</c:forEach>
+					<img src="${review.imagePath }" width="300">
+					<div class="pt-2" id="point" style="font-size:18px">${review.point}</div>
+					<div class="pt-2" id="contents" style="font-size:20px">${review.contents}</div>
 				</div>
 			</div>
+			</c:forEach>
+			<!-- /카드 -->
+				
+		</div>
 		</section>
 		
 		<div class="modal fade" id="moreModal">
@@ -146,13 +147,11 @@
 		});
 		
 		
-		$("#moreIcon").on("click", function(){
-		
-			$("#moreIcon").click();
+		$(".more-icon").on("click", function(){
 
 			var reviewId = $(this).data("review-id");
 
-			$("#updateBtn").data("review-id", reviewId);
+			$("#deleteBtn").data("review-id", reviewId);
 		
 		});
 
@@ -181,10 +180,14 @@
 
 		$("#deleteBtn").on("click", function(){
 			
+			var reviewId = $(this).data("review-id");
+		
+			
+			
 			$.ajax({
 				type:"delete"
 				, url:"/review/delete"
-				, data:{"reviewId":reviewId}
+				, data:{"id":reviewId}
 				, success:function(data){
 					if(data.result == "success"){
 						location.reload();
