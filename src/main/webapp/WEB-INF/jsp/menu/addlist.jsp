@@ -26,34 +26,34 @@
 						<div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-2 pl-3 col-12">
-									<input type="text" class="form-control" placeholder="초밥 이름">
+									<input type="text" class="form-control" placeholder="초밥 이름" id="nameInput">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3 col-12">
-									<input type="text" class="form-control" placeholder="초밥 종류">
+									<input type="text" class="form-control" placeholder="초밥 종류" id="typeInput">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3 col-12">
-									<input type="text" class="form-control" placeholder="초밥 가격">
+									<input type="text" class="form-control" placeholder="초밥 가격" id="priceInput">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3 col-12">
-									<input type="text" class="form-control" placeholder="초밥 접시 색">
+									<input type="text" class="form-control" placeholder="초밥 접시 색" id="colorInput">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3 col-12">
-									<input type="file" class="form-control">
+									<input type="file" class="form-control" id="img">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="d-flex justify-content-between pt-4">
-					<button type="button" class="btn btn-primary">추가</button>
+					<button type="button" class="btn btn-primary" id="addBtn">추가</button>
 				</div>
 			</div>
 		</section>
@@ -66,5 +66,86 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+<script>
+	
+	$(document).ready(function(){
+		
+		$("#addBtn").on("click", function(){
+			
+			var file = $("#img")[0].files[0];
+			var name = $("#nameInput").val();
+			var type = $("#typeInput").val();
+			var price = $("#priceInput").val();
+			var color = $("#colorInput").val();
+			
+			if(img == ""){
+				alert("이미지를 선택해 주세요");
+				return;
+			}
+			
+			if(name == ""){
+				alert("초밥 이름을 입력해 주세요");
+				$("#nameInput").focus();
+				return;
+			}
+
+			if(type == ""){
+				alert("초밥 종류를 선택해 주세요");
+				$("#typeInput").focus();
+				return;
+			}
+
+			if(price == ""){
+				alert("초밥 가격을 입력해 주세요");
+				$("#priceInput").focus();
+				return;
+			}
+
+			if(color == ""){
+				alert("초밥 접시 색을 선택해 주세요");
+				$("#colorInput").focus();
+				return;
+			}
+			
+			if(file == null){
+				alert("이미지를 추가해 주세요");
+				return;
+			}
+
+
+			var formData = new FormData();
+
+			formData.append("imagePath", file);
+			formData.append("name", name);
+			formData.append("type", type);
+			formData.append("price", price);
+			formData.append("dishColor", color);
+
+			$.ajax({
+				type:"post"
+				, url:"/menu/create"
+				, data:formData
+				, enctype:"multipart/form-data"
+				, processData:false
+				, contentType:false
+				, success:function(data){
+					if(data.result == "success"){
+						location.href="/menu/list-view"
+					} else{
+						alert("메뉴 추가 실패");
+					}
+				}
+				, error:function(){
+					alert("메뉴 추가 에러");
+				}
+			});
+			
+		});
+
+	});
+
+</script>
+
 </body>
 </html>

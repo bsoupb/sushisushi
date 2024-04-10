@@ -30,34 +30,43 @@
 		
 		<div class="container-sb">
 		<!-- 표 -->
+		<c:forEach var="menu" items="${menuList}">
 		<div style="border:1px solid #ccc; padding:10px; margin:10px;">
 			<table class="text-center">
 				<tr>
-					<td class="text-center" rowspan="4"><img src="https://cdn.pixabay.com/photo/2015/04/10/15/58/salmon-716430_1280.jpg" width=300></td>
-					<td>연어초밥</td>
+					<td class="text-center" rowspan="4"><img src="${menu.imagePath}" width=300></td>
+					<td class="text-center">${menu.name}</td>
 				</tr>
 				<tr>
-					<td>초밥</td>
+					<td>${menu.type}</td>
 				</tr>
 				<tr>
-					<td>2500원</td>
+					<td>${menu.price}원</td>
 				</tr>
 				<tr>
-					<td>노란색</td>
+					<td>${menu.dishColor}</td>
 				</tr>
 			</table>
+			<c:if test="${userLoginId eq 'admin'}">
+			<div class="d-flex justify-content-end pt-3">
+				<button type="button" class="btn btn-primary" id="deleteBtn" data-delete-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
+				<a href="/menu/list-update-view" type="button" class="btn btn-primary" data-update-id="${menu.id }">수정</a>
+			</div>
+			</c:if>
 		</div>
+		</c:forEach>
 		<!-- /표 -->
 		</div>
+		
+		<c:if test="${userLoginId eq 'admin'}">
 		<div class="d-flex justify-content-end align-items-end">
 			<div>
-				<button type="button" class="btn btn-primary">추가</button>
+				<a href="/menu/list-add-view" type="button" class="btn btn-primary">추가</a>
 			</div>
-			&nbsp;&nbsp;&nbsp;
-			<div>
-				<button type="button" class="btn btn-primary">수정</button>
-			</div>
+
+			
 		</div>
+		</c:if>
 		
 	
 		</section>
