@@ -34,9 +34,15 @@ public class MenuService {
 
 	}
 
-	public List<Menu> getMenuList(){
-		List<Menu> menuList = menuRepository.findAllByOrderByIdDesc();
+	public List<Menu> getMenuList(String type){
+		List<Menu> menuList = menuRepository.findByType(type);
 		return menuList;
+	}
+	
+	public Menu getMenu(int id) {
+		Optional<Menu> optionalMenu = menuRepository.findById(id);
+		Menu menu = optionalMenu.orElse(null);
+		return menu;
 	}
 	
 	public Menu updateMenu(int id, int userId, String name, String type, int price, String dishColor){

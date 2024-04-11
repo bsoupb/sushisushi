@@ -19,10 +19,10 @@
 		
 		<nav class="nav-content d-flex justify-content-center align-items-center">
 			<ul class="nav nav-fill w-100">
-				<li class="nav-item nav-color"><a href="#" class="nav-link nav-font-color">초밥</a></li>
-				<li class="nav-item nav-color"><a href="#" class="nav-link nav-font-color">군함</a></li>
-				<li class="nav-item nav-color"><a href="#" class="nav-link nav-font-color">사이드</a></li>
-				<li class="nav-item nav-color"><a href="#" class="nav-link nav-font-color">음료</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=초밥" class="nav-link nav-font-color">초밥</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=군함" class="nav-link nav-font-color">군함</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=사이드" class="nav-link nav-font-color">사이드</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=음료" class="nav-link nav-font-color">음료</a></li>
 			</ul>
 		</nav>
 		
@@ -50,7 +50,7 @@
 			<c:if test="${userLoginId eq 'admin'}">
 			<div class="d-flex justify-content-end pt-3">
 				<button type="button" class="btn btn-primary" id="deleteBtn" data-delete-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
-				<a href="/menu/list-update-view" type="button" class="btn btn-primary" data-update-id="${menu.id }">수정</a>
+				<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-update-id="${menu.id }">수정</a>
 			</div>
 			</c:if>
 		</div>

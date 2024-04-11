@@ -21,27 +21,27 @@
 				<div class="pt-5">
 					<div class="d-flex">
 						<div>
-							<img src="/static/img/main1.jpg" style="width:450px; height:270px">
+							<img src="${menu.imagePath }" style="width:300px; height:220px;">
 						</div>
 						<div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-2 pl-3">
-									<input type="text" class="form-control" id="nameInput" placeholder="초밥 이름">
+									<input type="text" class="form-control" id="nameInput" placeholder="초밥 이름" value="${menu.name }">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3">
-									<input type="text" class="form-control" id="typeInput" placeholder="초밥 종류">
+									<input type="text" class="form-control" id="typeInput" placeholder="초밥 종류" value="${menu.type }">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3">
-									<input type="text" class="form-control" id="priceInput" placeholder="초밥 가격">
+									<input type="text" class="form-control" id="priceInput" placeholder="초밥 가격" value="${menu.price }">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3">
-									<input type="text" class="form-control" id="colorInput" placeholder="초밥 접시 색">
+									<input type="text" class="form-control" id="colorInput" placeholder="초밥 접시 색" value="${menu.dishColor }">
 								</div>
 							</div>
 							
@@ -49,6 +49,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-between pt-4">
+					<a href="/menu/list-view" type="button" class="btn btn-primary">뒤로가기</a> &nbsp;&nbsp;&nbsp;
 					<button type="button" class="btn btn-primary" id="updateBtn">수정</button>
 				</div>
 			</div>
@@ -99,7 +100,8 @@
 				$("#colorInput").focus();
 				return;
 			}
-
+	
+			/*
 			$.ajax({
 				type:"post"
 				, url:"/menu/update"
@@ -115,7 +117,7 @@
 					alert("메뉴 수정 에러");
 				}
 			});
-			
+			*/
 		});
 		
 		

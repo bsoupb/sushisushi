@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
@@ -22,13 +23,18 @@ public class MenuController {
 	
 	@GetMapping("/list-view")
 	public String menuList(
-			HttpSession session
+			@RequestParam(value="type", required=false) String type
+			, HttpSession session
 			, Model model) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		String userLoginId = (String)session.getAttribute("userLoginId");
 		
-		List<Menu> menuList = menuService.getMenuList();
+		if(type == null) {
+			type = "초밥";
+		}
+		
+		List<Menu> menuList = menuService.getMenuList(type);
 		
 		model.addAttribute("menuList", menuList);
 		
@@ -41,7 +47,15 @@ public class MenuController {
 	}
 	
 	@GetMapping("/list-update-view")
-	public String menuUpdateList() {
+	public String menuUpdateList(
+						@RequestParam("id") int id
+						, Model model
+								) {
+
+		Menu menu = menuService.getMenu(id);
+		
+		model.addAttribute("menu", menu);
+		
 		return "/menu/updatelist";
 	}
 }

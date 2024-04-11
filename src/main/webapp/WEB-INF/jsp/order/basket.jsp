@@ -30,30 +30,32 @@
 		
 		<div class="container-sb">
 		<!-- 표 -->
+		<c:forEach var="menu" items="${menuList}">
 		<div style="border:1px solid #ccc; padding:10px; margin:10px;">
 			<table class="text-center">
 				<tr>
-					<td class="text-center" rowspan="4"><img src="https://cdn.pixabay.com/photo/2015/04/10/15/58/salmon-716430_1280.jpg" width=300></td>
-					<td>연어초밥</td>
+					<td class="text-center" rowspan="4"><img src="${menu.imagePath}" width=300></td>
+					<td class="text-center">${menu.name}</td>
 				</tr>
 				<tr>
-					<td>초밥</td>
+					<td>${menu.type}</td>
 				</tr>
 				<tr>
-					<td>2500원</td>
+					<td>${menu.price}원</td>
 				</tr>
 				<tr>
-					<td>노란색</td>
+					<td>${menu.dishColor}</td>
 				</tr>
 			</table>
+			<c:if test="${userLoginId ne 'admin'}">
 			<div class="d-flex justify-content-end">
-				<i class="bi bi-cart-check" style="font-size:25px"></i>
+				<i class="bi bi-cart-check" style="font-size:25px" data-basket-id="${menu.id }"></i>
 			</div>
+			</c:if>
 		</div>
+		</c:forEach>
 		<!-- /표 -->
 		</div>
-		
-		
 	
 		</section>
 		

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+<link rel="stylesheet" href="/static/css/star.css" type="text/css">
 </head>
 <body>
 
@@ -35,8 +36,20 @@
 					<div class="d-flex align-items-center">
 						<div class="mr-3">별점</div>
 					</div>
-					<div><input type="text" onkeyup="imsi(this)" class="form-control col-5" id="pointInput" maxlength=3></div>
+					<div><input type="text" onkeyup="imsi(this)" class="form-control col-5" id="pointInput" maxlength=3 value=""></div>
 				</div>
+				<fieldset class="rate">
+                    <input type="radio" id="rating10" name="rating" value="10"><label for="rating10" title="5점"></label>
+                    <input type="radio" id="rating9" name="rating" value="9"><label class="half" for="rating9" title="4.5점"></label>
+                    <input type="radio" id="rating8" name="rating" value="8"><label for="rating8" title="4점"></label>
+                    <input type="radio" id="rating7" name="rating" value="7"><label class="half" for="rating7" title="3.5점"></label>
+                    <input type="radio" id="rating6" name="rating" value="6"><label for="rating6" title="3점"></label>
+                    <input type="radio" id="rating5" name="rating" value="5"><label class="half" for="rating5" title="2.5점"></label>
+                    <input type="radio" id="rating4" name="rating" value="4"><label for="rating4" title="2점"></label>
+                    <input type="radio" id="rating3" name="rating" value="3"><label class="half" for="rating3" title="1.5점"></label>
+                    <input type="radio" id="rating2" name="rating" value="2"><label for="rating2" title="1점"></label>
+                    <input type="radio" id="rating1" name="rating" value="1"><label class="half" for="rating1" title="0.5점"></label>
+				</fieldset>
 				<div class="d-flex justify-content-between">
 					<div>
 						<label for="img">
@@ -56,6 +69,15 @@
 					</div>
 					<img src="${review.imagePath }" width="300">
 					<div class="pt-2" id="point" style="font-size:18px">${review.point}</div>
+					<c:forEach begin="1" end="${review.point}" step="1">
+                        <img src="http://marondal.com/material/images/dulumary/web/jstl/star_fill.png" width="15">
+                    </c:forEach>
+                    <c:if test="${review.point % 1 != 0}">
+                    	<img src="http://marondal.com/material/images/dulumary/web/jstl/star_half.png" width="15">
+                    </c:if>
+	                <c:forEach begin="1" end="${5 - review.point}" step="1">
+                        <img src="http://marondal.com/material/images/dulumary/web/jstl/star_empty.png" width="15">
+                    </c:forEach>
 					<div class="pt-2" id="contents" style="font-size:20px">${review.contents}</div>
 				</div>
 			</div>
@@ -103,6 +125,20 @@
 
 
 	$(document).ready(function(){
+		
+		$("input[type='radio']").on("click", function(){
+			
+			console.log($(this).val());
+			
+			for(let i = 1; i <= 10; i++){
+				
+				if($(this).val() == i){
+					$("#pointInput").attr("value", i/2);
+				}
+
+			}
+			
+		});
 		
 		$("#uploadBtn").on("click", function(){
 
