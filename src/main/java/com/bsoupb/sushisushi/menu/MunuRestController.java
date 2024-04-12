@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +50,7 @@ public class MunuRestController {
 
 	}
 	
-	@PostMapping("/update")
+	@PutMapping("/update")
 	public Map<String, String> updateMenuList(
 								@RequestParam("id") int id
 								, @RequestParam("name") String name
@@ -74,6 +76,44 @@ public class MunuRestController {
 
 	}
 	
+	@DeleteMapping("/delete")
+	public Map<String, String> deleteMenu(
+								@RequestParam("id") int id
+										){
+		
+		Menu menu = menuService.deleteMenu(id);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(menu != null) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
 	
+	@PutMapping("/soldout")
+	public Map<String, String> soldoutMenu(
+							@RequestParam("id") int id
+							, @RequestParam("name") String name
+							, @RequestParam("type") String type
+							, @RequestParam("price") int price
+							, @RequestParam("dishColor") String dishColor
+										){
+		
+		Menu menu = menuService.soldoutMenu(id, name, type, price, dishColor);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(menu != null) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
 	
 }

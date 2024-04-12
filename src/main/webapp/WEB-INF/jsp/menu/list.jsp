@@ -32,26 +32,29 @@
 		<!-- 표 -->
 		<c:forEach var="menu" items="${menuList}">
 		<div style="border:1px solid #ccc; padding:10px; margin:10px;">
-			<table class="text-center">
+			<table class="text-left">
 				<tr>
 					<td class="text-center" rowspan="4"><img src="${menu.imagePath}" width=300></td>
-					<td class="text-center">${menu.name}</td>
+					<td class="text-center pl-3">${menu.name}</td>
 				</tr>
 				<tr>
-					<td>${menu.type}</td>
+					<td class="pl-3">${menu.type}</td>
 				</tr>
 				<tr>
-					<td>${menu.price}원</td>
+					<td class="pl-3">${menu.price}원</td>
 				</tr>
 				<tr>
-					<td>${menu.dishColor}</td>
+					<td class="pl-3">${menu.dishColor}</td>
 				</tr>
 			</table>
 			<c:if test="${userLoginId eq 'admin'}">
-			<div class="d-flex justify-content-end pt-3">
-				<button type="button" class="btn btn-primary" id="deleteBtn" data-delete-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
-				<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-update-id="${menu.id }">수정</a>
-			</div>
+			<div class="d-flex justify-content-between">
+				<div class="pt-3"><i class="bi bi-cart-x" style="font-size:25px;"></i></div>
+				<div class="d-flex justify-content-end pt-3">
+					<button type="button" class="btn btn-primary" id="deleteBtn" data-menu-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
+					<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-menu-id="${menu.id }">수정</a>
+				</div>
+			</div>	
 			</c:if>
 		</div>
 		</c:forEach>
@@ -78,6 +81,36 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+<script>
+
+	$(document).ready(function(){
+		
+		$("#deleteBtn").on("click", function(){
+			
+			var menuId = $(this).data("menu-id");
+			
+			$.ajax({
+				type:"delete"
+				, url:"/menu/delete"
+				, data:{"id":menuId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else {
+						alert("메뉴 삭제 실패");
+					}
+				}
+				, error:function(){
+					alert("메뉴 삭제 에러");
+				}
+			});
+			
+		});
+		
+	});
+
+</script>
 
 
 </body>

@@ -17,7 +17,7 @@
 			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
 		</header>
 		<section class="main">
-			<div class="container-sb">
+			<div class="container-sb" data-menu-id="${menu.id }" id="menus">
 				<div class="pt-5">
 					<div class="d-flex">
 						<div>
@@ -48,8 +48,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="d-flex justify-content-between pt-4">
+				<div class="d-flex justify-content-end pt-4">
 					<a href="/menu/list-view" type="button" class="btn btn-primary">뒤로가기</a> &nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-primary" id="soldoutBtn">SoldOut</button> &nbsp;&nbsp;&nbsp;
 					<button type="button" class="btn btn-primary" id="updateBtn">수정</button>
 				</div>
 			</div>
@@ -75,7 +76,8 @@
 			var type = $("#typeInput").val();
 			var price = $("#priceInput").val();
 			var color = $("#colorInput").val();
-
+			var menuId = $("#menus").data("menu-id");
+			
 
 			if(name == ""){
 				alert("초밥 이름을 입력해 주세요");
@@ -101,14 +103,14 @@
 				return;
 			}
 	
-			/*
+			
 			$.ajax({
-				type:"post"
+				type:"put"
 				, url:"/menu/update"
-				, data:{"name":name, "type":type, "price":price, "dishColor":color}
+				, data:{"id":menuId, "name":name, "type":type, "price":price, "dishColor":color}
 				, success:function(data){
 					if(data.result == "success"){
-						location.href("/menu/list-view");
+						location.href="/menu/list-view";
 					} else{
 						alert("메뉴 수정 실패");
 					}
@@ -117,10 +119,36 @@
 					alert("메뉴 수정 에러");
 				}
 			});
-			*/
+			
 		});
 		
 		
+		$("#soldoutBtn").on("click", function(){
+			
+			var name = $("#nameInput").val();
+			var type = $("#typeInput").val();
+			var price = $("#priceInput").val();
+			var color = $("#colorInput").val();
+			var menuId = $("#menus").data("menu-id");
+			
+			$.ajax({
+				
+				type:"put"
+				, url:"/menu/soldout"
+				, data:{"id":menuId, "name":name, "type":type, "price":price, "dishColor":color}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/menu/list-view";
+					} else {
+						alert("솔드아웃 입력 실패");
+					}
+				}
+				, error:function(){
+					alert("솔드아웃 입력 에러");
+				}
+			});
+			
+		});
 
 
 	});

@@ -133,10 +133,14 @@
 			for(let i = 1; i <= 10; i++){
 				
 				if($(this).val() == i){
-					$("#pointInput").attr("value", i/2);
+					$("#pointInput").val(i/2);
 				}
 
 			}
+			
+			let points = $(this).val();
+			
+			$("#pointInput").val(points / 2);
 			
 		});
 		

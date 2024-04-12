@@ -45,6 +45,7 @@ public class MenuService {
 		return menu;
 	}
 	
+	
 	public Menu updateMenu(int id, int userId, String name, String type, int price, String dishColor){
 
 		Optional<Menu> OptionalMenu = menuRepository.findById(id);
@@ -52,7 +53,7 @@ public class MenuService {
 		
 		if(menu != null){
 		
-			menu = Menu.builder()
+			menu = menu.toBuilder()
 						.userId(userId)
 						.name(name)
 						.type(type)
@@ -60,8 +61,47 @@ public class MenuService {
 						.dishColor(dishColor)
 						.build();
 
+			menu = menuRepository.save(menu);
 		}
-
+		
+		
+		return menu;
+		
+	}
+	
+	public Menu deleteMenu(int id) {
+		
+		Optional<Menu> OptionalMenu = menuRepository.findById(id);
+		Menu menu = OptionalMenu.orElse(null);
+		
+		if(menu != null) {
+			
+			FileManager.removeFile(menu.getImagePath());
+			menuRepository.delete(menu);
+		}
+		
+		return menu;
+		
+	}
+	
+	public Menu soldoutMenu(int id, String name, String type, int price, String dishColor) {
+		
+		Optional<Menu> OptionalMenu = menuRepository.findById(id);
+		Menu menu = OptionalMenu.orElse(null);
+		
+		if(menu != null) {
+			
+			menu = menu.toBuilder()
+						.name(name + "Sold Out")
+						.type(type)
+						.price(price)
+						.dishColor(dishColor)
+						.build();
+			
+			menu = menuRepository.save(menu);
+			
+		}
+		
 		return menu;
 		
 	}
