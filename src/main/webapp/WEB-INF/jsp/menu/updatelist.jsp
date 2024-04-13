@@ -131,11 +131,29 @@
 			var color = $("#colorInput").val();
 			var menuId = $("#menus").data("menu-id");
 			
+			/*
 			$.ajax({
 				
 				type:"put"
 				, url:"/menu/soldout"
 				, data:{"id":menuId, "name":name, "type":type, "price":price, "dishColor":color}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/menu/list-view";
+					} else {
+						alert("솔드아웃 입력 실패");
+					}
+				}
+				, error:function(){
+					alert("솔드아웃 입력 에러");
+				}
+			});
+			*/
+			
+			$.ajax({
+				type:"post"
+				, url:"/soldout/create"
+				, data:{"menuId":menuId}
 				, success:function(data){
 					if(data.result == "success"){
 						location.href = "/menu/list-view";

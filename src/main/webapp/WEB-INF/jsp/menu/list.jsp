@@ -49,7 +49,7 @@
 			</table>
 			<c:if test="${userLoginId eq 'admin'}">
 			<div class="d-flex justify-content-between">
-				<div class="pt-3"><i class="bi bi-cart-x" style="font-size:25px;"></i></div>
+				<div class="pt-3"><i class="bi bi-cart-x" id="soldoutBtn" data-menu-id="${menu.id }" style="font-size:25px;"></i></div>
 				<div class="d-flex justify-content-end pt-3">
 					<button type="button" class="btn btn-primary" id="deleteBtn" data-menu-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
 					<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-menu-id="${menu.id }">수정</a>
@@ -103,6 +103,29 @@
 				}
 				, error:function(){
 					alert("메뉴 삭제 에러");
+				}
+			});
+			
+		});
+		
+		$("#soldoutBtn").on("click", function(){
+			
+			var menuId = $(this).data("menu-id");
+			
+			
+			$.ajax({
+				type:"delete"
+				, url:"/soldout/delete"
+				, data:{"menuId":menuId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else {
+						alert("솔드아웃 삭제 실패");
+					}
+				}
+				, error:function(){
+					alert("솔드아웃 삭제 에러");
 				}
 			});
 			
