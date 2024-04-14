@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
+import com.bsoupb.sushisushi.order.dto.OrderDetail;
+import com.bsoupb.sushisushi.order.service.OrderService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,14 +23,21 @@ public class OrderController {
 	@Autowired
 	private MenuService menuService;
 	
+	@Autowired
+	private OrderService orderService;
+	
 	@GetMapping("/basket-view")
 	public String shoppingBasket(
-			@RequestParam("type") String type
+			@RequestParam(value="type", required=false) String type
 			, HttpSession session
 			, Model model
 			) {
 		
 		int userId = (Integer)session.getAttribute("userId");
+		
+		if(type == null) {
+			type = "초밥";
+		}
 		
 		List<Menu> menuList = menuService.getMenuList(type);
 		
@@ -39,7 +48,14 @@ public class OrderController {
 	}
 	
 	@GetMapping("/order-list-view")
-	public String orderList() {
+	public String orderList(HttpSession session, Model model) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<OrderDetail> orderDetailList = orderService.getOrderList(userId);
+		
+		model.addAttribute("orderDetailList", orderDetailList);
+		
 		return "/order/orderlist";
 	}
 	

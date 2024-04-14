@@ -13,4 +13,6 @@ public interface MenuRepository extends JpaRepository<Menu, Integer>{
 	
 	public List<Menu> findByType(String type);
 	
+	public Menu findByUserId(int userId);
+	
 }

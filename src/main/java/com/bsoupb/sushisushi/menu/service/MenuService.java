@@ -84,6 +84,7 @@ public class MenuService {
 		
 	}
 	
+	/*
 	public Menu soldoutMenu(int id, String name, String type, int price, String dishColor) {
 		
 		Optional<Menu> OptionalMenu = menuRepository.findById(id);
@@ -104,6 +105,11 @@ public class MenuService {
 		
 		return menu;
 		
+	}
+	*/
+	
+	public Menu getMenuById(int userId) {
+		return menuRepository.findByUserId(userId);
 	}
 	
 }

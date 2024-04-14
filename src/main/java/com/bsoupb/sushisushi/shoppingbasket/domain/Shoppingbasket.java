@@ -1,4 +1,4 @@
-package com.bsoupb.sushisushi.order.domain;
+package com.bsoupb.sushisushi.shoppingbasket.domain;
 
 import java.util.Date;
 
@@ -18,11 +18,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder=true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="shoppingbasket")
 @Getter
-@Table(name="`order`")
 @Entity
-public class Order {
-
+public class Shoppingbasket {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -33,17 +33,9 @@ public class Order {
 	@Column(name="userId")
 	private int userId;
 	
-	@Column(name="orderId")
-	private int orderId;
-	
-	@Column(name="totalDish")
-	private int totalDish;
-	
-	@Column(name="createdAt", updatable=false)
 	@UpdateTimestamp
+	@Column(name="createdAt", updatable=false)
 	private Date createdAt;
 	
-	@Column(name="updatedAt")
-	private Date updatedAt;
 	
 }

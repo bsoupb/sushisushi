@@ -31,17 +31,29 @@
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3 col-12">
-									<input type="text" class="form-control" placeholder="초밥 종류" id="typeInput">
+									<select class="form-control" id="typeInput">
+										<option value="">초밥 종류</option>
+										<option value="초밥">초밥</option>
+										<option value="군함">군함</option>
+										<option value="사이드">사이드</option>
+										<option value="음료">음료</option>
+									</select>
+								</div>
+							</div>
+							<div class="d-flex justify-content-center">
+								<div class="pt-3 pl-3 col-12">
+									<select class="form-control" id="colorInput">
+										<option value="">초밥 접시 색</option>
+										<option value="노란색">노란색</option>
+										<option value="파란색">파란색</option>
+										<option value="흰색">흰색</option>
+										<option value="검은색">검은색</option>
+									</select>
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
 								<div class="pt-3 pl-3 col-12">
 									<input type="text" class="form-control" placeholder="초밥 가격" id="priceInput">
-								</div>
-							</div>
-							<div class="d-flex justify-content-center">
-								<div class="pt-3 pl-3 col-12">
-									<input type="text" class="form-control" placeholder="초밥 접시 색" id="colorInput">
 								</div>
 							</div>
 							<div class="d-flex justify-content-center">
@@ -70,6 +82,23 @@
 <script>
 	
 	$(document).ready(function(){
+		
+		$("#colorInput").on("change", function(){
+			
+			var color = $(this).val();
+			
+			if(color == "노란색"){
+				$("#priceInput").val("3000");
+			} else if(color == "흰색") {
+				$("#priceInput").val("3500");
+			} else if(color == "파란색") {
+				$("#priceInput").val("4000");
+			} else if(color == "검은색") {
+				$("#priceInput").val("4500");
+			}
+			
+		});
+		
 		
 		$("#addBtn").on("click", function(){
 			

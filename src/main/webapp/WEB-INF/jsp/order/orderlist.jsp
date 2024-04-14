@@ -29,21 +29,15 @@
 							</thead>
 						</tr>
 						<tbody>
+						<c:forEach var="order" items="${orderDetailList }" >
 						<!-- 메뉴 -->
 							<tr>
-								<td>연어초밥</td>
-								<td><i class="bi bi-plus-square"></i>3<i class="bi bi-dash-square"></i></td>
+								<td>${order.name }</td>
+								<td><i class="bi bi-plus-square"></i>${order.totalDish }<i class="bi bi-dash-square"></i></td>
 								<td>7000</td>
 							</tr>
 						<!-- /메뉴 -->
-						<!-- 메뉴 -->
-							<tr>
-								<td>연어초밥</td>
-								<td><i class="bi bi-plus-square"></i>3<i class="bi bi-dash-square"></i></td>
-								<td>7000</td>
-							</tr>
-						<!-- /메뉴 -->
-
+						</c:forEach>
 						</tbody>
 						<tr>
 							<th>총</th>

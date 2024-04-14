@@ -130,6 +130,7 @@
 			
 			console.log($(this).val());
 			
+			/*
 			for(let i = 1; i <= 10; i++){
 				
 				if($(this).val() == i){
@@ -137,6 +138,7 @@
 				}
 
 			}
+			*/
 			
 			let points = $(this).val();
 			

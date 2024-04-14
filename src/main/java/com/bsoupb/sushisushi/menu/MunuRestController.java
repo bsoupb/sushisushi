@@ -94,6 +94,7 @@ public class MunuRestController {
 		return resultMap;
 	}
 	
+	/*
 	@PutMapping("/soldout")
 	public Map<String, String> soldoutMenu(
 							@RequestParam("id") int id
@@ -115,5 +116,6 @@ public class MunuRestController {
 		
 		return resultMap;
 	}
+	*/
 	
 }
