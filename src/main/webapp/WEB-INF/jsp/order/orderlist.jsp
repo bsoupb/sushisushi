@@ -17,7 +17,7 @@
 			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
 		</header>
 		
-		<section class="main">
+		<section>
 			<div class="container-sb">
 				<div class="bill">
 					<table class="table text-center">
@@ -29,11 +29,11 @@
 							</thead>
 						</tr>
 						<tbody>
-						<c:forEach var="order" items="${orderDetailList }" >
+						<c:forEach var="shoppingbasket" items="${shoppingbasketDetailList }" >
 						<!-- 메뉴 -->
 							<tr>
-								<td>${order.name }</td>
-								<td><i class="bi bi-plus-square"></i>${order.totalDish }<i class="bi bi-dash-square"></i></td>
+								<td>${shoppingbasket.name }</td>
+								<td><i class="bi bi-plus-square">${shoppingbasket.count }</i><i class="bi bi-dash-square"></i></td>
 								<td>7000</td>
 							</tr>
 						<!-- /메뉴 -->

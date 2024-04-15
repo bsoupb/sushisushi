@@ -112,4 +112,8 @@ public class MenuService {
 		return menuRepository.findByUserId(userId);
 	}
 	
+	public Optional<Menu> getMenuByMenuId(int id) {
+		return menuRepository.findById(id);
+	}
+	
 }

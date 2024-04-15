@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
-import com.bsoupb.sushisushi.order.dto.OrderDetail;
-import com.bsoupb.sushisushi.order.service.OrderService;
+import com.bsoupb.sushisushi.shoppingbasket.dto.ShoppingbasketDetail;
+import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,7 +24,7 @@ public class OrderController {
 	private MenuService menuService;
 	
 	@Autowired
-	private OrderService orderService;
+	private ShoppingbasketService shoppingbasketService;
 	
 	@GetMapping("/basket-view")
 	public String shoppingBasket(
@@ -52,9 +52,9 @@ public class OrderController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		List<OrderDetail> orderDetailList = orderService.getOrderList(userId);
+		List<ShoppingbasketDetail> shoppingbasketDetailList = shoppingbasketService.getShoppingbasketList(userId);
 		
-		model.addAttribute("orderDetailList", orderDetailList);
+		model.addAttribute("shoppingbasketDetailList", shoppingbasketDetailList);
 		
 		return "/order/orderlist";
 	}

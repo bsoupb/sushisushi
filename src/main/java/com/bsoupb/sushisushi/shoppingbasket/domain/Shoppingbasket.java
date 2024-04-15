@@ -33,6 +33,8 @@ public class Shoppingbasket {
 	@Column(name="userId")
 	private int userId;
 	
+	private int count;
+	
 	@UpdateTimestamp
 	@Column(name="createdAt", updatable=false)
 	private Date createdAt;

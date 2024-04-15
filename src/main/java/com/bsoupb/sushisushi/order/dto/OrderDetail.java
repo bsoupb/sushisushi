@@ -13,6 +13,7 @@ public class OrderDetail {
 	private int totalDish;
 	
 	private String name;
+	private boolean isShoppingbasket;
 	
 
 }
