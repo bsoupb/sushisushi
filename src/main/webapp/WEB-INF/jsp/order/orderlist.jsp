@@ -33,7 +33,12 @@
 						<!-- 메뉴 -->
 							<tr>
 								<td>${shoppingbasket.name }</td>
-								<td><i class="bi bi-plus-square">${shoppingbasket.count }</i><i class="bi bi-dash-square"></i></td>
+								<td>
+									<i class="bi bi-plus-square plusBtn" data-plus-id="${shoppingbasket.menuId }">
+									${shoppingbasket.count }
+									</i>
+									<i class="bi bi-dash-square minusBtn" data-minus-id="${shoppingbasket.menuId }"></i>
+								</td>
 								<td>7000</td>
 							</tr>
 						<!-- /메뉴 -->
@@ -99,6 +104,56 @@
 		}	
 	}).open();
 	}
+	
+	$(document).ready(function(){
+		
+		$(".plusBtn").on("click", function(){
+			
+			var menuId = $(this).data("plus-id");
+			
+			$.ajax({
+				
+				type:"post"
+				, url:"/order/plus"
+				, data:{"menuId":menuId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else{
+						alert("플러스 실패");
+					}
+				}
+				, error:function(){
+					alert("플러스 에러")
+				}
+			});
+			
+		});
+		
+		$(".minusBtn").on("click", function(){
+			
+			var menuId = $(this).data("minus-id");
+			
+			$.ajax({
+				
+				type:"post"
+				, url:"/order/minus"
+				, data:{"menuId":menuId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					} else {
+						alert("마이너스 실패");
+					}
+				}
+				, error:function(){
+					alert("마이너스 에러")
+				}
+				
+			});
+		});
+		
+	});
 	
 </script>
 

@@ -22,12 +22,25 @@ public class ShoppingbasketService {
 	@Autowired
 	private MenuService menuService;
 	
-	public Shoppingbasket addBasket(int userId, int menuId) {
+	public Shoppingbasket addBasket(int menuId, int userId) {
+		
+		Shoppingbasket shoppingbasket = shoppingbasketRepository.findByMenuIdAndUserId(menuId, userId);
+		
+		if(shoppingbasket != null) {
+
+			shoppingbasket = shoppingbasket.toBuilder()
+					.count(shoppingbasket.getCount())
+					.build();
 			
-		Shoppingbasket shoppingbasket = Shoppingbasket.builder()
-													.userId(userId)
-													.menuId(menuId)
-													.build();
+		} else {
+			
+			shoppingbasket = Shoppingbasket.builder()
+					.userId(userId)
+					.menuId(menuId)
+					.count(1)
+					.build();
+			
+		}
 		
 		return shoppingbasketRepository.save(shoppingbasket);
 		
@@ -69,14 +82,39 @@ public class ShoppingbasketService {
 			ShoppingbasketDetail shoppingbasketDetail = ShoppingbasketDetail.builder()
 																			.menuId(shoppingbasket.getMenuId())
 																			.userId(shoppingbasket.getUserId())
-																			.count(shoppingbasket.getCount())
+																			.count(shoppingbasket.getCount()+1)
 																			.name(menu.getName())
 																			.build();
 			
 			shoppingbasketDetailList.add(shoppingbasketDetail);
 		}
-
+		
 		return shoppingbasketDetailList;
+	}
+	
+	public Shoppingbasket plusBasket(int menuId, int userId) {
+		
+		Shoppingbasket shoppingbasket = shoppingbasketRepository.findByMenuIdAndUserId(menuId, userId);
+		
+		shoppingbasket = shoppingbasket.toBuilder()
+										.count(shoppingbasket.getCount() + 1)
+										.build();
+	
+		return shoppingbasketRepository.save(shoppingbasket);
+		
+	}
+	
+	public Shoppingbasket minusBasket(int menuId, int userId) {
+		
+		Shoppingbasket shoppingbasket = shoppingbasketRepository.findByMenuIdAndUserId(menuId, userId);
+		
+		shoppingbasket = shoppingbasket.toBuilder()
+										.count(shoppingbasket.getCount() - 1)
+										.build();
+		
+		return shoppingbasketRepository.save(shoppingbasket);
+		
+		
 	}
 	
 }

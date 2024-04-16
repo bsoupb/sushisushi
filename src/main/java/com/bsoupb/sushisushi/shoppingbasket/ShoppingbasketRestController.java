@@ -30,7 +30,49 @@ public class ShoppingbasketRestController {
 		int userId = (Integer)session.getAttribute("userId");
 		String userLoginId = (String)session.getAttribute("userLoginId");
 	
-		Shoppingbasket shoppingbasket = shoppingbasketService.addBasket(userId, menuId);
+		Shoppingbasket shoppingbasket = shoppingbasketService.addBasket(menuId, userId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(shoppingbasket != null) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@PostMapping("/plus")
+	public Map<String, String> plusBasket(
+			@RequestParam("menuId") int menuId
+			, HttpSession session
+			){
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Shoppingbasket shoppingbasket = shoppingbasketService.plusBasket(menuId, userId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(shoppingbasket != null) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+		
+	}
+	
+	@PostMapping("/minus")
+	public Map<String, String> minusBasket(
+			@RequestParam("menuId") int menuId
+			, HttpSession session){
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Shoppingbasket shoppingbasket = shoppingbasketService.minusBasket(menuId, userId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

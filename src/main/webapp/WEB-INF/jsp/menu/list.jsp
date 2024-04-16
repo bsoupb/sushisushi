@@ -47,7 +47,8 @@
 					<td class="pl-3">${menu.dishColor}</td>
 				</tr>
 			</table>
-			<c:if test="${userLoginId eq 'admin'}">
+			<c:choose>
+			<c:when test="${userLoginId eq 'admin'}">
 			<div class="d-flex justify-content-between">
 				<div class="pt-3"><i class="bi bi-cart-x" id="soldoutBtn" data-menu-id="${menu.id }" style="font-size:25px;"></i></div>
 				<div class="d-flex justify-content-end pt-3">
@@ -55,7 +56,13 @@
 					<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-menu-id="${menu.id }">수정</a>
 				</div>
 			</div>	
-			</c:if>
+			</c:when>
+			<c:otherwise>
+			<div class="d-flex justify-content-end">
+				<i class="bi bi-cart-check basketBtn" style="font-size:25px" data-basket-id="${menu.id }"></i>
+			</div>
+			</c:otherwise>
+			</c:choose>
 		</div>
 		</c:forEach>
 		<!-- /표 -->
@@ -131,8 +138,33 @@
 			
 		});
 		
+		$(".basketBtn").on("click", function(){
+			
+			var menuId = $(this).data("basket-id");
+			
+			$.ajax({
+				
+				type:"post"
+				, url:"/order/basket"
+				, data:{"menuId":menuId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/order/order-list-view"
+					} else {
+						alert("장바구니 추가 실패");
+					}
+				}
+				, error:function(){
+					alert("장바구니 추가 에러");
+				}
+				
+			});
+			
+			
+			
+		});		
 	});
-
+	
 </script>
 
 

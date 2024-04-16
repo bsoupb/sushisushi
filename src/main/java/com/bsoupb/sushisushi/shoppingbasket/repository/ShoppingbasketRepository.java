@@ -18,5 +18,6 @@ public interface ShoppingbasketRepository extends JpaRepository<Shoppingbasket, 
 	
 	public List<Shoppingbasket> findByUserId(int userId);
 	
+	public Shoppingbasket findByMenuIdAndUserId(int menuId, int userId);
 
 }
