@@ -33,8 +33,8 @@ public class Order {
 	@Column(name="userId")
 	private int userId;
 	
-	@Column(name="orderId")
-	private int orderId;
+	@Column(name="billId")
+	private int billId;
 	
 	@Column(name="totalDish")
 	private int totalDish;

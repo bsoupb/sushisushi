@@ -68,6 +68,13 @@ public class ShoppingbasketService {
 		return shoppingbasketRepository.findBymenuId(menuId);
 	}
 	
+	public List<Shoppingbasket> getShoppingbasketListByUserId(int userId) {
+		
+		List<Shoppingbasket> shoppingbasketList = shoppingbasketRepository.findByUserId(userId);
+		return shoppingbasketList;
+		
+	}
+	
 	public Map<String, Object> getShoppingbasketList(int userId){
 		
 		List<Shoppingbasket> shoppingbasketList = shoppingbasketRepository.findByUserId(userId);

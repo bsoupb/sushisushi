@@ -9,7 +9,7 @@ public class OrderDetail {
 	
 	private int menuId;
 	private int userId;
-	private int orderId;
+	private int billId;
 	private int totalDish;
 	
 	private String name;

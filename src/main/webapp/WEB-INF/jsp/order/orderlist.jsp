@@ -198,11 +198,26 @@
 				return;
 			}
 			
-			
 			if(!isDuplicateAddr){
 				alert("배달 가능한 주소인지 확인해 주세요");
 			}
 		
+			$.ajax({
+				
+				type:"post"
+				, url:"/order/insert"
+				, data:{"menuId", "userId", "billId", "totalDish"}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/bill/receipt-view";
+					} else {
+						alert("주문서 저장 실패");
+					}
+				}
+				, error:function(){
+					alert("주문서 저장 에러");
+				}
+			});
 
 		});
 		
