@@ -1,7 +1,9 @@
 package com.bsoupb.sushisushi.shoppingbasket.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class ShoppingbasketService {
 		if(shoppingbasket != null) {
 
 			shoppingbasket = shoppingbasket.toBuilder()
-					.count(shoppingbasket.getCount())
+					.count(shoppingbasket.getCount() + 1)
 					.build();
 			
 		} else {
@@ -66,12 +68,14 @@ public class ShoppingbasketService {
 		return shoppingbasketRepository.findBymenuId(menuId);
 	}
 	
-	public List<ShoppingbasketDetail> getShoppingbasketList(int userId){
+	public Map<String, Object> getShoppingbasketList(int userId){
 		
 		List<Shoppingbasket> shoppingbasketList = shoppingbasketRepository.findByUserId(userId);
 		
 		List<ShoppingbasketDetail> shoppingbasketDetailList = new ArrayList<>();
 		
+		int totalPrice = 0;
+		int totalCount = 0;
 		
 		for(Shoppingbasket shoppingbasket:shoppingbasketList) {
 			 
@@ -79,17 +83,35 @@ public class ShoppingbasketService {
 			Optional<Menu> optionalMenu = menuService.getMenuByMenuId(menuId);
 			Menu menu = optionalMenu.orElse(null);
 			
+			int count = shoppingbasket.getCount();
+			int price = menu.getPrice();
+			
 			ShoppingbasketDetail shoppingbasketDetail = ShoppingbasketDetail.builder()
+																			.id(shoppingbasket.getId())
 																			.menuId(shoppingbasket.getMenuId())
 																			.userId(shoppingbasket.getUserId())
-																			.count(shoppingbasket.getCount()+1)
+																			.count(shoppingbasket.getCount())
 																			.name(menu.getName())
+																			.price(menu.getPrice())
 																			.build();
+			
+			totalCount += count;
+			totalPrice += price * count;
+			
 			
 			shoppingbasketDetailList.add(shoppingbasketDetail);
 		}
 		
-		return shoppingbasketDetailList;
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("totalCount", totalCount);
+		resultMap.put("totalPrice", totalPrice);
+		resultMap.put("ShoppingbasketDetail", shoppingbasketDetailList);
+		
+		
+		
+		
+		
+		return resultMap;
 	}
 	
 	public Shoppingbasket plusBasket(int menuId, int userId) {
@@ -108,13 +130,37 @@ public class ShoppingbasketService {
 		
 		Shoppingbasket shoppingbasket = shoppingbasketRepository.findByMenuIdAndUserId(menuId, userId);
 		
-		shoppingbasket = shoppingbasket.toBuilder()
-										.count(shoppingbasket.getCount() - 1)
-										.build();
+		int count = shoppingbasket.getCount();
+		
+		if(count <= 1) {
+			
+			shoppingbasket = shoppingbasket.toBuilder()
+					.count(1)
+					.build();
+			
+		} else {
+			
+			shoppingbasket = shoppingbasket.toBuilder()
+					.count(shoppingbasket.getCount() - 1)
+					.build();
+			
+		}
 		
 		return shoppingbasketRepository.save(shoppingbasket);
 		
+	}
+	
+	public Shoppingbasket deleteBasket(int id) {
 		
+		Optional<Shoppingbasket> OpionalShoppingbasket = shoppingbasketRepository.findById(id);
+		
+		Shoppingbasket shoppingbasket = OpionalShoppingbasket.orElse(null);
+		
+		if(shoppingbasket != null) {
+			shoppingbasketRepository.delete(shoppingbasket);
+		}
+		
+		return shoppingbasket;
 	}
 	
 }

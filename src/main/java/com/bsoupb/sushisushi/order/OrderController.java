@@ -1,6 +1,7 @@
 package com.bsoupb.sushisushi.order;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
-import com.bsoupb.sushisushi.shoppingbasket.dto.ShoppingbasketDetail;
 import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
 
 import jakarta.servlet.http.HttpSession;
@@ -52,9 +52,9 @@ public class OrderController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		List<ShoppingbasketDetail> shoppingbasketDetailList = shoppingbasketService.getShoppingbasketList(userId);
+		Map<String, Object> shoppingbasketDetailMap = shoppingbasketService.getShoppingbasketList(userId);
 		
-		model.addAttribute("shoppingbasketDetailList", shoppingbasketDetailList);
+		model.addAttribute("shoppingbasketDetailMap", shoppingbasketDetailMap);
 		
 		return "/order/orderlist";
 	}

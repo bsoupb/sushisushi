@@ -73,6 +73,8 @@
 		
 		$(".basketBtn").on("click", function(){
 			
+			alert("basketclick");
+			
 			var menuId = $(this).data("basket-id");
 			
 			$.ajax({

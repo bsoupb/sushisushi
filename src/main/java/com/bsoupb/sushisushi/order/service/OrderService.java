@@ -55,6 +55,8 @@ public class OrderService {
 		return orderDetailList;
 	}
 	
-	
+	public insertOrder() {
+		
+	}
 	
 }
