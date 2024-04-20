@@ -29,7 +29,7 @@ public class OrderRestController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Order order = orderService.insertOrder();
+		Order order = orderService.insertOrder(userId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

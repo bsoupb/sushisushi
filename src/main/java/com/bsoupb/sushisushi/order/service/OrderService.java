@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bsoupb.sushisushi.bill.domain.Bill;
+import com.bsoupb.sushisushi.bill.repository.BillRepository;
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
 import com.bsoupb.sushisushi.order.domain.Order;
@@ -19,6 +21,9 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private BillRepository billRepository;
 	
 	@Autowired
 	private MenuService menuService;
@@ -56,10 +61,17 @@ public class OrderService {
 		return orderDetailList;
 	}
 	
-	public Order insertOrder(userId) {
+	public Order insertOrder(int userId) {
+		
+		
 		
 		Bill bill = Bill.builder()
-					
+						.userId(bill.getUserId())
+						.number(bill.getNumber())
+						.totalDish(bill.getTotalDish())
+						.build();
+		
+		billRepository.save(bill);
 		
 		// 주문 정보 추가
 		// 장바구니에 있는 목록을 order 테이블로 저장
@@ -71,15 +83,16 @@ public class OrderService {
 			Order order = Order.builder()
 					.menuId(shoppingbasket.getMenuId())
 					.userId(shoppingbasket.getUserId())
-					.billId()
-					.totalDish(shoppingbasket.getCout())
+					.billId(bill.getId())
+					.totalDish(shoppingbasket.getCount())
 					.build();
 			
 			
+			orderRepository.save(order);
+
 		}
 		
 		
-		return orderRepository.save(order);
 		
 	}
 	
