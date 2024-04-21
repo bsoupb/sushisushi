@@ -11,9 +11,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Builder(toBuilder=true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -33,11 +35,10 @@ public class Bill {
 	@Column(name="totalDish")
 	private int totalDish;
 	
+	private String address;
+	
 	@Column(name="createdAt", updatable=false)
 	@UpdateTimestamp
 	private Date createdAt;
-	
-	@Column(name="updatedAt")
-	private Date updatedAt;
-	
+
 }

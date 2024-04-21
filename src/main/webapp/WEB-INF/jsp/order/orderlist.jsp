@@ -193,6 +193,8 @@
 		
 		$("#orderBtn").on("click", function(){
 			
+			let address = $("#addressInput").val();
+			
 			if($("#addressInput").val() == ""){
 				alert("배달 주소를 입력해 주세요");
 				return;
@@ -202,11 +204,12 @@
 				alert("배달 가능한 주소인지 확인해 주세요");
 			}
 		
+			
 			$.ajax({
 				
 				type:"post"
 				, url:"/order/insert"
-				, data:{"menuId", "userId", "billId", "totalDish"}
+				, data:{"address":address}
 				, success:function(data){
 					if(data.result == "success"){
 						location.href = "/bill/receipt-view";
@@ -218,6 +221,7 @@
 					alert("주문서 저장 에러");
 				}
 			});
+			
 
 		});
 		

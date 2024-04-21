@@ -24,12 +24,13 @@ public class OrderRestController {
 	
 	@PostMapping("/insert")
 	public Map<String, String> saveOrder(
-			 HttpSession session
+			@RequestParam("address") String address 
+			, HttpSession session
 			){
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Order order = orderService.insertOrder(userId);
+		Order order = orderService.insertOrder(userId, address);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
@@ -42,5 +43,25 @@ public class OrderRestController {
 		return resultMap;
 		
 	}
+	
+	/*
+	@PostMapping("/reserved")
+	public Map<String, String> reservedNumber(HttpSession session){
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Bill bill = orderService.reservedNumber(userId);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(bill != null) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	*/
 	
 }

@@ -61,14 +61,17 @@ public class OrderService {
 		return orderDetailList;
 	}
 	
-	public Order insertOrder(int userId) {
+	public Order insertOrder(int userId, String address) {
 		
+		String number = "RS" + (Math.random()*10000000+10000000);
 		
+		Bill bill = billRepository.findByUserId(userId);
 		
-		Bill bill = Bill.builder()
-						.userId(bill.getUserId())
-						.number(bill.getNumber())
+		bill = Bill.builder()
+						.userId(userId)
+						.number(number)
 						.totalDish(bill.getTotalDish())
+						.address(address)
 						.build();
 		
 		billRepository.save(bill);
@@ -77,23 +80,25 @@ public class OrderService {
 		// 장바구니에 있는 목록을 order 테이블로 저장
 		List<Shoppingbasket> shoppingbasketList = shoppingbasketService.getShoppingbasketListByUserId(userId);
 		
+		Order order = orderRepository.findByUserId(userId);
+		
 		for(Shoppingbasket shoppingbasket:shoppingbasketList) {
 			
-	
-			Order order = Order.builder()
+			order = Order.builder()
 					.menuId(shoppingbasket.getMenuId())
 					.userId(shoppingbasket.getUserId())
 					.billId(bill.getId())
 					.totalDish(shoppingbasket.getCount())
 					.build();
 			
-			
 			orderRepository.save(order);
-
 		}
 		
-		
+		return order;
+
 		
 	}
+	
+	
 	
 }
