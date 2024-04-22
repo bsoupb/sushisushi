@@ -17,9 +17,15 @@
 		<header class="d-flex justify-content-center align-items-center">
 			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
 		</header>
-		<section class="main">
+		<c:if test="${not empty userId}">
+		<div class="d-flex justify-content-end">
+			<div class="mr-3">${userLoginId }님</div>
+			<a href="/user/logout">로그아웃</a>
+		</div>
+		</c:if>
+		<section>
 			<div class="container-sb">
-				<div class="bill">
+				<div class="bill pt-3">
 					<table class="table text-center">
 						<tr>
 							<thead>
@@ -29,18 +35,18 @@
 							</thead>
 						</tr>
 						<tbody>
-						<c:forEach var="shoppingbasket" items="${shoppingbasketDetailMap.ShoppingbasketDetail }" >
+						<c:forEach var="order" items="${orderDetailMap.orderDetail }" >
 						<!-- 메뉴 -->
 							<tr>
-								<td>${shoppingbasket.name }</td>
-								<td>${shoppingbasket.count }</td>
-								<td><fmt:formatNumber value="${shoppingbasket.price * shoppingbasket.count}" pattern="#,###"/>원</td>
+								<td>${order.name }</td>
+								<td>${order.count }</td>
+								<td><fmt:formatNumber value="${order.price * order.count}" pattern="#,###"/>원</td>
 							</tr>
 						<!-- /메뉴 -->
 						</c:forEach>
 						</tbody>
-						<c:set var="totalCount" value="${shoppingbasketDetailMap['totalCount'] }" />
-						<c:set var="totalPrice" value="${shoppingbasketDetailMap['totalPrice'] }" />
+						<c:set var="totalCount" value="${orderDetailMap['totalCount'] }" />
+						<c:set var="totalPrice" value="${orderDetailMap['totalPrice'] }" />
 						<tr>
 							<th>총</th>
 							<th>${totalCount }</th>

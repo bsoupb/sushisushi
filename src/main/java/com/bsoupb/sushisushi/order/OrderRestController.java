@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bsoupb.sushisushi.order.domain.Order;
+import com.bsoupb.sushisushi.bill.domain.Bill;
 import com.bsoupb.sushisushi.order.service.OrderService;
 
 import jakarta.servlet.http.HttpSession;
@@ -30,11 +30,11 @@ public class OrderRestController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Order order = orderService.insertOrder(userId, address);
+		Bill bill = orderService.insertOrder(userId, address);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
-		if(order != null) {
+		if(bill != null) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");

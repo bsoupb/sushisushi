@@ -1,7 +1,10 @@
 package com.bsoupb.sushisushi.order.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,8 @@ import com.bsoupb.sushisushi.order.domain.Order;
 import com.bsoupb.sushisushi.order.dto.OrderDetail;
 import com.bsoupb.sushisushi.order.repository.OrderRepository;
 import com.bsoupb.sushisushi.shoppingbasket.domain.Shoppingbasket;
+import com.bsoupb.sushisushi.shoppingbasket.dto.ShoppingbasketDetail;
+import com.bsoupb.sushisushi.shoppingbasket.repository.ShoppingbasketRepository;
 import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
 
 @Service
@@ -31,37 +36,56 @@ public class OrderService {
 	@Autowired
 	private ShoppingbasketService shoppingbasketService;
 	
-	public List<OrderDetail> getOrderList(int userId){
-		List<Order> orderList = orderRepository.findAllByOrderByIdDesc();
+	@Autowired
+	private ShoppingbasketRepository shoppingbasketRepository;
+	
+	
+	
+	public Map<String, Object> getOrderList(int userId){
+		List<Order> orderList = orderRepository.findByUserId(userId);
 		
 		List<OrderDetail> orderDetailList = new ArrayList<>();
+		
+		int totalPrice = 0;
+		int totalDish = 0;
 		
 		for(Order order:orderList) {
 			
 			int menuId = order.getMenuId();
 		
-			Menu menu = menuService.getMenuById(userId);
+			Optional<Menu> optionalMenu = menuService.getMenuByMenuId(menuId);
+			Menu menu = optionalMenu.orElse(null);
+			
+			int count = order.getTotalDish();
+			int price = menu.getPrice();
 			
 			Boolean isShoppingbasket = shoppingbasketService.isShoppingbasket(menuId, userId);
 			
 			OrderDetail orderdetail = OrderDetail.builder()
-												.menuId(order.getMenuId())
-												.userId(order.getUserId())
 												.billId(order.getBillId())
 												.totalDish(order.getTotalDish())
 												.name(menu.getName())
+												.price(menu.getPrice())
 												.isShoppingbasket(isShoppingbasket)
 												.build();
 			
 			orderDetailList.add(orderdetail);
 			
+			totalDish += count;
+			totalPrice += price;
+			
 		}
 		
+		Map<String, Object> resultMap = new HashMap<>();
 		
-		return orderDetailList;
+		resultMap.put("totalDish", totalDish);
+		resultMap.put("totalPrice", totalPrice);
+		resultMap.put("orderdetail", orderDetailList);
+		
+		return resultMap;
 	}
 	
-	public Order insertOrder(int userId, String address) {
+	public Bill insertOrder(int userId, String address) {
 
 		List<Shoppingbasket> shoppingbasketList = shoppingbasketService.getShoppingbasketListByUserId(userId);
 		int totalDish = 0;
@@ -72,9 +96,8 @@ public class OrderService {
 		
 		String number = "RS" + Math.round((Math.random()*100000+800000));
 		
-		Bill bill = billRepository.findByUserId(userId);
 		
-		bill = Bill.builder()
+		Bill bill = Bill.builder()
 						.userId(userId)
 						.number(number)
 						.totalDish(totalDish)
@@ -87,14 +110,9 @@ public class OrderService {
 		// 장바구니에 있는 목록을 order 테이블로 저장
 
 		
-		Order order = orderRepository.findByUserId(userId);
-		
-		
 		for(Shoppingbasket shoppingbasket:shoppingbasketList) {
 			
-			
-			
-			order = Order.builder()
+			Order order = Order.builder()
 					.menuId(shoppingbasket.getMenuId())
 					.userId(shoppingbasket.getUserId())
 					.billId(bill.getId())
@@ -104,8 +122,17 @@ public class OrderService {
 			orderRepository.save(order);
 		}
 		
-		return order;
+		List<Shoppingbasket> shoppingbasketDeleteList = shoppingbasketRepository.findByUserId(userId);
+		
+		if(shoppingbasketDeleteList != null) {
+			shoppingbasketRepository.deleteAll(shoppingbasketDeleteList);
+		}
+	
+		
+		return bill;
 
+		
+		
 		
 	}
 	

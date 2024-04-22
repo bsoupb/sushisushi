@@ -26,7 +26,7 @@
 			</div>
 		</c:if>
 		
-		<section class="main">
+		<section>
 		<div class="container-sb">
 			<div style="border:1px solid #ccc; padding:10px; margin:10px;">
 				<div class="pb-4">
@@ -91,7 +91,6 @@
 		  <div class="modal-dialog modal-dialog-centered">
 		    <div class="modal-content">
 		      <div class="modal-body text-center">
-		        <a href="#" id="updateBtn">수정하기</a>
 		        <a href="#" id="deleteBtn">삭제하기</a>
 		      </div>
 		    </div>

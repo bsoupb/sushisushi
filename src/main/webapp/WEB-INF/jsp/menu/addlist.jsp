@@ -16,7 +16,13 @@
 		<header class="d-flex justify-content-center align-items-center">
 			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
 		</header>
-		<section class="main">
+		<c:if test="${not empty userId}">
+		<div class="d-flex justify-content-end">
+			<div class="mr-3">${userLoginId }님</div>
+			<a href="/user/logout">로그아웃</a>
+		</div>
+		</c:if>
+		<section>
 			<div class="container-sb">
 				<div class="pt-5">
 					<div class="d-flex">

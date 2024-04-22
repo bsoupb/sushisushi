@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
+import com.bsoupb.sushisushi.order.service.OrderService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 public class BillController {
 
 	@Autowired
-	private ShoppingbasketService shoppingbasketService;
+	private OrderService orderService;
 	
 	@GetMapping("/bill/receipt-view")
 	public String receipt(
@@ -24,9 +24,9 @@ public class BillController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Map<String, Object> shoppingbasketDetailMap = shoppingbasketService.getShoppingbasketList(userId);
+		Map<String, Object> orderDetailMap = orderService.getOrderList(userId);
 		
-		model.addAttribute("shoppingbasketDetailMap", shoppingbasketDetailMap);
+		model.addAttribute("orderDetailMap", orderDetailMap);
 		
 		return "bill/receipt";
 	}

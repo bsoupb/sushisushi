@@ -17,6 +17,13 @@
 			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
 		</header>
 		
+		<c:if test="${not empty userId}">
+		<div class="d-flex justify-content-end">
+			<div class="mr-3">${userLoginId }님</div>
+			<a href="/user/logout">로그아웃</a>
+		</div>
+		</c:if>
+		
 		<nav class="nav-content d-flex justify-content-center align-items-center">
 			<ul class="nav nav-fill w-100">
 				<li class="nav-item nav-color"><a href="/menu/list-view?type=초밥" class="nav-link nav-font-color">초밥</a></li>
@@ -50,7 +57,7 @@
 			<c:choose>
 			<c:when test="${userLoginId eq 'admin'}">
 			<div class="d-flex justify-content-between">
-				<div class="pt-3"><i class="bi bi-cart-x" id="soldoutBtn" data-menu-id="${menu.id }" style="font-size:25px;"></i></div>
+				<div class="pt-3"><i class="bi bi-cart-x soldoutBtn" data-menu-id="${menu.id }" style="font-size:25px;"></i></div>
 				<div class="d-flex justify-content-end pt-3">
 					<button type="button" class="btn btn-primary" id="deleteBtn" data-menu-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
 					<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-menu-id="${menu.id }">수정</a>
@@ -115,7 +122,7 @@
 			
 		});
 		
-		$("#soldoutBtn").on("click", function(){
+		$(".soldoutBtn").on("click", function(){
 			
 			var menuId = $(this).data("menu-id");
 			

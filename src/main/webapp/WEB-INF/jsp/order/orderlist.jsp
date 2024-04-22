@@ -18,6 +18,13 @@
 			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
 		</header>
 		
+		<c:if test="${not empty userId}">
+		<div class="d-flex justify-content-end">
+			<div class="mr-3">${userLoginId }님</div>
+			<a href="/user/logout">로그아웃</a>
+		</div>
+		</c:if>
+		
 		<section>
 			<div class="container-sb">
 				<div class="bill">
@@ -60,6 +67,9 @@
 						<c:if test="${totalPrice < 18000 }" >
 							${Math.abs(18000 - totalPrice) }원 이상 더 주문해 주세요.
 						</c:if>
+					</div>
+					<div class="d-flex justify-content-end pb-3">
+						<a href="/menu/list-view?type=초밥" type="button" class="btn btn-primary">메뉴리스트로</a>
 					</div>
 				</div>
 				
@@ -221,7 +231,7 @@
 					alert("주문서 저장 에러");
 				}
 			});
-			
+		
 
 		});
 		
