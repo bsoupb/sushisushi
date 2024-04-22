@@ -50,7 +50,7 @@
         </div>
 		
 		<div class="d-flex justify-content-end">
-			<i class="bi bi-cart-check" id="basket" style="font-size:50px"></i>		
+			<i class="bi bi-cart-check" id="basket" style="font-size:50px" onclick="location.href='/bill/receipt-view'"></i>		
 		</div>
 	</section>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
@@ -125,13 +125,6 @@ document.querySelectorAll(".slider__dot .dot").forEach((dot, index) => {
 
 </script>
 
-<script>
-    $(document).ready(function(){    // "화면이 준비가 되었다. 이제 자바스크립트 실행해도 됨!"
-        $(window).scroll(function(){ // "브라우저의 스크롤을 일으키면 실행시켜!!"
-			$('body').removeClass('show')
-        })
-    })
-</script>
 
 </body>
 </html>

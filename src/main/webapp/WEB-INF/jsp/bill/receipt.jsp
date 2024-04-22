@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,9 @@
 <body>
 	
 	<div id="wrap">
-		<c:import url="/WEB-INF/jsp/include/header.jsp" />
+		<header class="d-flex justify-content-center align-items-center">
+			<div id="sushisushi" class="header-font" onclick="location.href='/main/main-view'">sushisushi</div>
+		</header>
 		<section class="main">
 			<div class="container-sb">
 				<div class="bill">
@@ -26,26 +29,22 @@
 							</thead>
 						</tr>
 						<tbody>
+						<c:forEach var="shoppingbasket" items="${shoppingbasketDetailMap.ShoppingbasketDetail }" >
 						<!-- 메뉴 -->
 							<tr>
-								<td>연어초밥</td>
-								<td>3</td>
-								<td>7000</td>
+								<td>${shoppingbasket.name }</td>
+								<td>${shoppingbasket.count }</td>
+								<td><fmt:formatNumber value="${shoppingbasket.price * shoppingbasket.count}" pattern="#,###"/>원</td>
 							</tr>
 						<!-- /메뉴 -->
-						<!-- 메뉴 -->
-							<tr>
-								<td>연어초밥</td>
-								<td>3</td>
-								<td>7000</td>
-							</tr>
-						<!-- /메뉴 -->
-
+						</c:forEach>
 						</tbody>
+						<c:set var="totalCount" value="${shoppingbasketDetailMap['totalCount'] }" />
+						<c:set var="totalPrice" value="${shoppingbasketDetailMap['totalPrice'] }" />
 						<tr>
 							<th>총</th>
-							<th>4</th>
-							<th>11000</th>
+							<th>${totalCount }</th>
+							<th><fmt:formatNumber value="${totalPrice }" pattern="#,###"/>원</th>
 						</tr>
 					</table>
 				</div>
