@@ -13,4 +13,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	
 	public List<Order> findByUserId(int userId);
 	
+	public List<Order> findByBillId(int billId);
+	
 }

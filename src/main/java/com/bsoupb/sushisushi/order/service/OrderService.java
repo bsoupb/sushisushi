@@ -41,8 +41,8 @@ public class OrderService {
 	
 	
 	
-	public Map<String, Object> getOrderList(int userId){
-		List<Order> orderList = orderRepository.findByUserId(userId);
+	public Map<String, Object> getOrderList(int billId){
+		List<Order> orderList = orderRepository.findByBillId(billId);
 		
 		List<OrderDetail> orderDetailList = new ArrayList<>();
 		
@@ -59,7 +59,7 @@ public class OrderService {
 			int count = order.getTotalDish();
 			int price = menu.getPrice();
 			
-			Boolean isShoppingbasket = shoppingbasketService.isShoppingbasket(menuId, userId);
+			Boolean isShoppingbasket = shoppingbasketService.isShoppingbasket(menuId, billId);
 			
 			OrderDetail orderdetail = OrderDetail.builder()
 												.billId(order.getBillId())

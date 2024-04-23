@@ -20,6 +20,12 @@ public class BillService {
 		return billList;
 	}
 	
+	public List<Bill> getBillListByUserId(int userId) {
+		
+		List<Bill> billList = billRepository.findByUserId(userId);
+		
+		return billList;
+	}
 	
 	
 }
