@@ -10,12 +10,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bsoupb.sushisushi.common.FileManager;
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.repository.MenuRepository;
+import com.bsoupb.sushisushi.order.service.OrderService;
+import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
 
 @Service
 public class MenuService {
 
 	@Autowired
 	private MenuRepository menuRepository;
+	
+	@Autowired
+	private ShoppingbasketService shoppingbasketService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	public Menu addMenu(int userId, MultipartFile file, String name, String type, int price, String dishColor){
 		
@@ -78,6 +86,8 @@ public class MenuService {
 			
 			FileManager.removeFile(menu.getImagePath());
 			menuRepository.delete(menu);
+			shoppingbasketService.deleteBasketByMenuId(id);
+			orderService.deleteOrderByMenuId(id);
 		}
 		
 		return menu;

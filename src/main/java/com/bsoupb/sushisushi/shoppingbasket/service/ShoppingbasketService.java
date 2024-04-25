@@ -169,5 +169,11 @@ public class ShoppingbasketService {
 		
 		return shoppingbasket;
 	}
+	
+	public void deleteBasketByMenuId(int menuId) {
+		
+		shoppingbasketRepository.deleteByMenuId(menuId);
+		
+	}
 
 }

@@ -222,7 +222,7 @@
 				, data:{"address":address}
 				, success:function(data){
 					if(data.result == "success"){
-						location.href = "/bill/receipt-view";
+						location.href = "/bill/orderdetail-view";
 					} else {
 						alert("주문서 저장 실패");
 					}

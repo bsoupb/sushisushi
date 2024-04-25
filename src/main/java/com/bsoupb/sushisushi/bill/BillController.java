@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.bill.domain.Bill;
 import com.bsoupb.sushisushi.bill.service.BillService;
@@ -23,6 +24,7 @@ public class BillController {
 	@Autowired
 	private BillService billService;
 	
+	/*
 	@GetMapping("/bill/receipt-view")
 	public String receipt(
 			HttpSession session
@@ -36,6 +38,7 @@ public class BillController {
 		
 		return "bill/receipt";
 	}
+	*/
 	
 	@GetMapping("/bill/orderdetail-view")
 	public String orderDetail(
@@ -49,6 +52,19 @@ public class BillController {
 		model.addAttribute("billList", billList);
 		
 		return "/bill/orderdetail";
+	}
+
+	@GetMapping("/bill/receipt-view")
+	public String OrderDetail(
+			@RequestParam("billId") int billId
+			, Model model
+			) {
+		
+		Map<String, Object> orderListMap = orderService.getOrderList(billId);
+
+		model.addAttribute("orderListMap", orderListMap);
+		
+		return "bill/receipt";
 	}
 	
 }

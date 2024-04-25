@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bsoupb.sushisushi.shoppingbasket.domain.Shoppingbasket;
 
+import jakarta.transaction.Transactional;
+
 public interface ShoppingbasketRepository extends JpaRepository<Shoppingbasket, Integer>{
 	
 	public List<Shoppingbasket> findAllByOrderByIdDesc();
@@ -19,5 +21,8 @@ public interface ShoppingbasketRepository extends JpaRepository<Shoppingbasket, 
 	public List<Shoppingbasket> findByUserId(int userId);
 	
 	public Shoppingbasket findByMenuIdAndUserId(int menuId, int userId);
+	
+	@Transactional
+	public void deleteByMenuId(int menuId);
 
 }

@@ -31,7 +31,7 @@
 				<c:forEach var="bill" items="${billList }">
 				<div class="card" style="border:1px solid #ccc; margin:10px;">
 					<div class="d-flex justify-content-end" style="border:1px solid #ccc; padding:10px; margin:10px">
-						<a href="#" type="button" class="btn btn-secondary btn-sm">주문상세</a>					
+						<a href="/bill/receipt-view?billId=${bill.id }" type="button" class="btn btn-secondary btn-sm">주문상세</a>					
 					</div>
 					<div style="font-size:20px; padding:10px; margin:10px;">
 						<table class="text-left" >

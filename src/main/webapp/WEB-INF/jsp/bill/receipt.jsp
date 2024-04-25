@@ -35,7 +35,7 @@
 							</thead>
 						</tr>
 						<tbody>
-						<c:forEach var="order" items="${orderDetailMap.orderdetail }" >
+						<c:forEach var="order" items="${orderListMap.orderdetail }" >
 						<!-- 메뉴 -->
 							<tr>
 								<td>${order.name }</td>
@@ -45,8 +45,8 @@
 						<!-- /메뉴 -->
 						</c:forEach>
 						</tbody>
-						<c:set var="totalCount" value="${orderDetailMap['totalDish'] }" />
-						<c:set var="totalPrice" value="${orderDetailMap['totalPrice'] }" />
+						<c:set var="totalCount" value="${orderListMap.totalDish }" />
+						<c:set var="totalPrice" value="${orderListMap.totalPrice }" />
 						<tr>
 							<th>총</th>
 							<th>${totalCount }</th>
