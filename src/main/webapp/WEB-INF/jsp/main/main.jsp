@@ -50,7 +50,7 @@
         </div>
 		
 		<div class="d-flex justify-content-end">
-			<i class="bi bi-cart-check" id="basket" style="font-size:50px" onclick="location.href='/bill/receipt-view'"></i>		
+			<i class="bi bi-cart-check" id="basket" style="font-size:50px" onclick="location.href='/bill/orderdetail-view'"></i>		
 		</div>
 	</section>
 	<c:import url="/WEB-INF/jsp/include/footer.jsp" />

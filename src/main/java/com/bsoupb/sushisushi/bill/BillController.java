@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.bill.domain.Bill;
 import com.bsoupb.sushisushi.bill.service.BillService;
-import com.bsoupb.sushisushi.order.service.OrderService;
+import com.bsoupb.sushisushi.order.service.OrderDtoService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 public class BillController {
 
 	@Autowired
-	private OrderService orderService;
+	private OrderDtoService orderdtoService;
 	
 	@Autowired
 	private BillService billService;
@@ -60,7 +60,7 @@ public class BillController {
 			, Model model
 			) {
 		
-		Map<String, Object> orderListMap = orderService.getOrderList(billId);
+		Map<String, Object> orderListMap = orderdtoService.getOrderList(billId);
 
 		model.addAttribute("orderListMap", orderListMap);
 		

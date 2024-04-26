@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bsoupb.sushisushi.bill.domain.Bill;
+import com.bsoupb.sushisushi.order.service.OrderDtoService;
 import com.bsoupb.sushisushi.order.service.OrderService;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +23,9 @@ public class OrderRestController {
 	@Autowired
 	private OrderService orderService;
 	
+	@Autowired
+	private OrderDtoService orderdtoService;
+	
 	@PostMapping("/insert")
 	public Map<String, String> saveOrder(
 			@RequestParam("address") String address 
@@ -30,7 +34,7 @@ public class OrderRestController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Bill bill = orderService.insertOrder(userId, address);
+		Bill bill = orderdtoService.insertOrder(userId, address);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

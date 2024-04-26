@@ -9,11 +9,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bsoupb.sushisushi.bill.domain.Bill;
+import com.bsoupb.sushisushi.bill.repository.BillRepository;
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
 import com.bsoupb.sushisushi.order.domain.Order;
 import com.bsoupb.sushisushi.order.dto.OrderDetail;
 import com.bsoupb.sushisushi.order.repository.OrderRepository;
+import com.bsoupb.sushisushi.shoppingbasket.domain.Shoppingbasket;
+import com.bsoupb.sushisushi.shoppingbasket.repository.ShoppingbasketRepository;
 import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
 
 @Service
@@ -28,6 +32,11 @@ public class OrderDtoService {
 	@Autowired
 	private ShoppingbasketService shoppingbasketService;
 	
+	@Autowired
+	private BillRepository billRepository;
+	
+	@Autowired
+	private ShoppingbasketRepository shoppingbasketRepository;
 	
 	public Map<String, Object> getOrderList(int billId){
 		List<Order> orderList = orderRepository.findByBillId(billId);
@@ -73,5 +82,52 @@ public class OrderDtoService {
 		return resultMap;
 	}
 	
+	public Bill insertOrder(int userId, String address) {
+
+		List<Shoppingbasket> shoppingbasketList = shoppingbasketService.getShoppingbasketListByUserId(userId);
+		int totalDish = 0;
+		
+		for(Shoppingbasket shoppingbasket:shoppingbasketList) {
+			totalDish += shoppingbasket.getCount();
+		}
+		
+		String number = "RS" + Math.round((Math.random()*100000+800000));
+		
+		
+		Bill bill = Bill.builder()
+						.userId(userId)
+						.number(number)
+						.totalDish(totalDish)
+						.address(address)
+						.build();
+		
+		billRepository.save(bill);
+		
+		// 주문 정보 추가
+		// 장바구니에 있는 목록을 order 테이블로 저장
+
+		
+		for(Shoppingbasket shoppingbasket:shoppingbasketList) {
+			
+			Order order = Order.builder()
+					.menuId(shoppingbasket.getMenuId())
+					.userId(shoppingbasket.getUserId())
+					.billId(bill.getId())
+					.totalDish(shoppingbasket.getCount())
+					.build();
+			
+			orderRepository.save(order);
+		}
+		
+		List<Shoppingbasket> shoppingbasketDeleteList = shoppingbasketRepository.findByUserId(userId);
+		
+		if(shoppingbasketDeleteList != null) {
+			shoppingbasketRepository.deleteAll(shoppingbasketDeleteList);
+		}
+	
+		
+		return bill;
+
+	}
 	
 }

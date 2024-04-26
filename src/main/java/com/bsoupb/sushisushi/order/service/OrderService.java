@@ -31,16 +31,13 @@ public class OrderService {
 	private BillRepository billRepository;
 	
 	@Autowired
-	private MenuService menuService;
-	
-	@Autowired
 	private ShoppingbasketService shoppingbasketService;
 	
 	@Autowired
 	private ShoppingbasketRepository shoppingbasketRepository;
 	
 	
-	
+	/*
 	public Map<String, Object> getOrderList(int billId){
 		List<Order> orderList = orderRepository.findByBillId(billId);
 		
@@ -84,7 +81,9 @@ public class OrderService {
 		
 		return resultMap;
 	}
+	*/
 	
+	/*
 	public Bill insertOrder(int userId, String address) {
 
 		List<Shoppingbasket> shoppingbasketList = shoppingbasketService.getShoppingbasketListByUserId(userId);
@@ -132,6 +131,7 @@ public class OrderService {
 		return bill;
 
 	}
+	*/
 	
 	public void deleteOrderByMenuId(int menuId) {
 		

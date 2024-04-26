@@ -21,8 +21,7 @@ public class ShoppingbasketService {
 	@Autowired
 	private ShoppingbasketRepository shoppingbasketRepository;
 	
-	@Autowired
-	private MenuService menuService;
+
 	
 	public Shoppingbasket addBasket(int menuId, int userId) {
 		
@@ -75,6 +74,7 @@ public class ShoppingbasketService {
 		
 	}
 	
+	/*
 	public Map<String, Object> getShoppingbasketList(int userId){
 		
 		List<Shoppingbasket> shoppingbasketList = shoppingbasketRepository.findByUserId(userId);
@@ -114,12 +114,9 @@ public class ShoppingbasketService {
 		resultMap.put("totalPrice", totalPrice);
 		resultMap.put("ShoppingbasketDetail", shoppingbasketDetailList);
 		
-		
-		
-		
-		
 		return resultMap;
 	}
+	*/
 	
 	public Shoppingbasket plusBasket(int menuId, int userId) {
 		

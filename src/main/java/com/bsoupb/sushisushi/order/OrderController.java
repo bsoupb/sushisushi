@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.service.MenuService;
-import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketService;
+import com.bsoupb.sushisushi.shoppingbasket.service.ShoppingbasketDtoService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,7 +24,7 @@ public class OrderController {
 	private MenuService menuService;
 	
 	@Autowired
-	private ShoppingbasketService shoppingbasketService;
+	private ShoppingbasketDtoService shoppingbasketdtoService;
 	
 	@GetMapping("/basket-view")
 	public String shoppingBasket(
@@ -52,7 +52,7 @@ public class OrderController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Map<String, Object> shoppingbasketDetailMap = shoppingbasketService.getShoppingbasketList(userId);
+		Map<String, Object> shoppingbasketDetailMap = shoppingbasketdtoService.getShoppingbasketList(userId);
 		
 		model.addAttribute("shoppingbasketDetailMap", shoppingbasketDetailMap);
 		
