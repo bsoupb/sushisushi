@@ -41,4 +41,15 @@ public class SoldoutService {
 		return soldout; 
 	}
 	
+	public boolean isSoldout(int menuId) {
+		
+		int count = soldoutRepository.countByMenuId(menuId);
+		
+		if(count >= 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

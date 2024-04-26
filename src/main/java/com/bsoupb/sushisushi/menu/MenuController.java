@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bsoupb.sushisushi.menu.domain.Menu;
+import com.bsoupb.sushisushi.menu.dto.MenuDetail;
+import com.bsoupb.sushisushi.menu.service.MenuDtoService;
 import com.bsoupb.sushisushi.menu.service.MenuService;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +22,9 @@ public class MenuController {
 	
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private MenuDtoService menudtoService;
 	
 	@GetMapping("/list-view")
 	public String menuList(
@@ -34,7 +39,7 @@ public class MenuController {
 			type = "초밥";
 		}
 		
-		List<Menu> menuList = menuService.getMenuList(type);
+		List<MenuDetail> menuList = menudtoService.getMenuList(type);
 		
 		model.addAttribute("menuList", menuList);
 		

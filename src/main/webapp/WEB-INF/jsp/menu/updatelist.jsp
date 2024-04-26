@@ -69,7 +69,6 @@
 				</div>
 				<div class="d-flex justify-content-end pt-4">
 					<a href="/menu/list-view" type="button" class="btn btn-primary">뒤로가기</a> &nbsp;&nbsp;&nbsp;
-					<button type="button" class="btn btn-primary" id="soldoutBtn">SoldOut</button> &nbsp;&nbsp;&nbsp;
 					<button type="button" class="btn btn-primary" id="updateBtn">수정</button>
 				</div>
 			</div>
@@ -157,16 +156,12 @@
 			
 		});
 		
-		
+		/*
 		$("#soldoutBtn").on("click", function(){
 			
-			var name = $("#nameInput").val();
-			var type = $("#typeInput").val();
-			var price = $("#priceInput").val();
-			var color = $("#colorInput").val();
 			var menuId = $("#menus").data("menu-id");
 			
-			/*
+			
 			$.ajax({
 				
 				type:"put"
@@ -183,7 +178,7 @@
 					alert("솔드아웃 입력 에러");
 				}
 			});
-			*/
+			
 			
 			$.ajax({
 				type:"post"
@@ -202,7 +197,7 @@
 			});
 			
 		});
-
+		*/
 
 	});
 

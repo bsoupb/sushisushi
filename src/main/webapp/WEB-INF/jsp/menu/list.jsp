@@ -57,11 +57,16 @@
 			<c:choose>
 			<c:when test="${userLoginId eq 'admin'}">
 			<div class="d-flex justify-content-between">
-				<div class="pt-3"><i class="bi bi-cart-x soldoutBtn" data-menu-id="${menu.id }" style="font-size:25px;"></i></div>
 				<div class="d-flex justify-content-end pt-3">
+					<c:if test="${not menu.isSoldout }" >
+						<button type="button" class="btn btn-primary" id="soldoutBtn" data-menu-id="${menu.id }">SoldOut</button> &nbsp;&nbsp;&nbsp;
+					</c:if>
 					<button type="button" class="btn btn-primary" id="deleteBtn" data-menu-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
 					<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-menu-id="${menu.id }">수정</a>
 				</div>
+				<c:if test="${menu.isSoldout }" >
+					<div class="pt-3"><i class="bi bi-cart-x soldoutDeleteBtn" data-menu-id="${menu.id }" style="font-size:25px;"></i></div>
+				</c:if>
 			</div>	
 			</c:when>
 			<c:otherwise>
@@ -80,8 +85,6 @@
 			<div>
 				<a href="/menu/list-add-view" type="button" class="btn btn-primary">추가</a>
 			</div>
-
-			
 		</div>
 		</c:if>
 		
@@ -122,7 +125,7 @@
 			
 		});
 		
-		$(".soldoutBtn").on("click", function(){
+		$(".soldoutDeleteBtn").on("click", function(){
 			
 			var menuId = $(this).data("menu-id");
 			
@@ -167,9 +170,48 @@
 				
 			});
 			
+		});	
+		
+		$("#soldoutBtn").on("click", function(){
 			
+			var menuId = $(this).data("menu-id");
 			
-		});		
+			/*
+			$.ajax({
+				
+				type:"put"
+				, url:"/menu/soldout"
+				, data:{"id":menuId, "name":name, "type":type, "price":price, "dishColor":color}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/menu/list-view";
+					} else {
+						alert("솔드아웃 입력 실패");
+					}
+				}
+				, error:function(){
+					alert("솔드아웃 입력 에러");
+				}
+			});
+			*/
+			
+			$.ajax({
+				type:"post"
+				, url:"/soldout/create"
+				, data:{"menuId":menuId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/menu/list-view";
+					} else {
+						alert("솔드아웃 입력 실패");
+					}
+				}
+				, error:function(){
+					alert("솔드아웃 입력 에러");
+				}
+			});
+			
+		});
 	});
 	
 </script>
