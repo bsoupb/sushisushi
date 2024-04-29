@@ -59,9 +59,9 @@
 			<div class="d-flex justify-content-between">
 				<div class="d-flex justify-content-end pt-3">
 					<c:if test="${not menu.isSoldout }" >
-						<button type="button" class="btn btn-primary" id="soldoutBtn" data-menu-id="${menu.id }">SoldOut</button> &nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-primary soldoutBtn" data-menu-id="${menu.id }">SoldOut</button> &nbsp;&nbsp;&nbsp;
 					</c:if>
-					<button type="button" class="btn btn-primary" id="deleteBtn" data-menu-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-primary deleteBtn" data-menu-id="${menu.id }">삭제</button>&nbsp;&nbsp;&nbsp;
 					<a href="/menu/list-update-view?id=${menu.id }" type="button" class="btn btn-primary" data-menu-id="${menu.id }">수정</a>
 				</div>
 				<c:if test="${menu.isSoldout }" >
@@ -69,11 +69,11 @@
 				</c:if>
 			</div>	
 			</c:when>
-			<c:otherwise>
+			<c:when test="${userLoginId ne 'admin' and not menu.isSoldout }">
 			<div class="d-flex justify-content-end">
 				<i class="bi bi-cart-check basketBtn" style="font-size:25px" data-basket-id="${menu.id }"></i>
 			</div>
-			</c:otherwise>
+			</c:when>
 			</c:choose>
 		</div>
 		</c:forEach>
@@ -103,7 +103,7 @@
 
 	$(document).ready(function(){
 		
-		$("#deleteBtn").on("click", function(){
+		$(".deleteBtn").on("click", function(){
 			
 			var menuId = $(this).data("menu-id");
 			
@@ -172,7 +172,7 @@
 			
 		});	
 		
-		$("#soldoutBtn").on("click", function(){
+		$(".soldoutBtn").on("click", function(){
 			
 			var menuId = $(this).data("menu-id");
 			

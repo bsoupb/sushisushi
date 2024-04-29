@@ -25,6 +25,15 @@
 		</div>
 		</c:if>
 		
+		<nav class="nav-content d-flex justify-content-center align-items-center">
+			<ul class="nav nav-fill w-100">
+				<li class="nav-item nav-color"><a href="/order/basket-view?type=초밥" class="nav-link nav-font-color">초밥</a></li>
+				<li class="nav-item nav-color"><a href="/order/basket-view?type=군함" class="nav-link nav-font-color">군함</a></li>
+				<li class="nav-item nav-color"><a href="/order/basket-view?type=사이드" class="nav-link nav-font-color">사이드</a></li>
+				<li class="nav-item nav-color"><a href="/order/basket-view?type=음료" class="nav-link nav-font-color">음료</a></li>
+			</ul>
+		</nav>
+		
 		<section>
 			<div class="container-sb">
 				<div class="bill">
@@ -75,10 +84,10 @@
 				
 				<div>
 					<div>
-						<div id="map" style="width:500px;height:400px;"></div>
+						<div id="map" style="width:900px;height:400px;"></div>
 					</div>
 					<div>
-						<div class="input-group pt-3 col-9 pl-0">
+						<div class="input-group pt-3 col-13 pl-0">
 							<input type="text" id="addressInput" class="form-control" placeholder="주소" readonly>
 							<div class="input-group-append">
 						 		<button class="btn btn-secondary" type="button" onclick="findAddr()" id="searchBtn">주소 검색</button>
@@ -113,7 +122,7 @@
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 2 // 지도의 확대 레벨
     };  
 	
 	// 지도를 생성합니다    
@@ -212,6 +221,7 @@
 			
 			if(!isDuplicateAddr){
 				alert("배달 가능한 주소인지 확인해 주세요");
+				return;
 			}
 		
 			
