@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name="Menu")
+@Table(name="menu")
 @Entity
 public class Menu {
 

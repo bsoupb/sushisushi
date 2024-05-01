@@ -131,15 +131,15 @@
 				return;
 			}
 
-			if(price == ""){
-				alert("초밥 가격을 입력해 주세요");
-				$("#priceInput").focus();
-				return;
-			}
-
 			if(color == ""){
 				alert("초밥 접시 색을 선택해 주세요");
 				$("#colorInput").focus();
+				return;
+			}
+			
+			if(price == ""){
+				alert("초밥 가격을 입력해 주세요");
+				$("#priceInput").focus();
 				return;
 			}
 			
