@@ -27,10 +27,10 @@
 		
 		<nav class="nav-content d-flex justify-content-center align-items-center">
 			<ul class="nav nav-fill w-100">
-				<li class="nav-item nav-color"><a href="/order/basket-view?type=초밥" class="nav-link nav-font-color">초밥</a></li>
-				<li class="nav-item nav-color"><a href="/order/basket-view?type=군함" class="nav-link nav-font-color">군함</a></li>
-				<li class="nav-item nav-color"><a href="/order/basket-view?type=사이드" class="nav-link nav-font-color">사이드</a></li>
-				<li class="nav-item nav-color"><a href="/order/basket-view?type=음료" class="nav-link nav-font-color">음료</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=초밥" class="nav-link nav-font-color">초밥</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=군함" class="nav-link nav-font-color">군함</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=사이드" class="nav-link nav-font-color">사이드</a></li>
+				<li class="nav-item nav-color"><a href="/menu/list-view?type=음료" class="nav-link nav-font-color">음료</a></li>
 			</ul>
 		</nav>
 		
