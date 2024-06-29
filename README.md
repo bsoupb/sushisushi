@@ -20,7 +20,7 @@
     <img src="https://img.shields.io/badge/Github-181717?style=flat&logo=Github&logoColor=white" />
 </div>
 
-<div>
+<div align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=bsoupb&layout=compact"><br><br>
   <img src="https://github-readme-stats.vercel.app/api?username=bsoupb&show_icons=true">
 </div>
