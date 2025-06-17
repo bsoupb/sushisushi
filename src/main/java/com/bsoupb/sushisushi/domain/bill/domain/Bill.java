@@ -1,4 +1,4 @@
-package com.bsoupb.sushisushi.bill.domain;
+package com.bsoupb.sushisushi.domain.bill.domain;
 
 import java.util.Date;
 
