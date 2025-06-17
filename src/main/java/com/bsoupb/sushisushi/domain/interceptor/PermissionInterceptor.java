@@ -1,4 +1,4 @@
-package com.bsoupb.sushisushi.interceptor;
+package com.bsoupb.sushisushi.domain.interceptor;
 
 
 import java.io.IOException;

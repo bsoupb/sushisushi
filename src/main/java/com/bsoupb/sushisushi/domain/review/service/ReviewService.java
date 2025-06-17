@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bsoupb.sushisushi.common.FileManager;
+import com.bsoupb.sushisushi.global.common.FileManager;
 import com.bsoupb.sushisushi.review.domain.Review;
 import com.bsoupb.sushisushi.review.dto.ReviewDetail;
 import com.bsoupb.sushisushi.review.repository.ReviewRepository;
 import com.bsoupb.sushisushi.user.domain.User;
-import com.bsoupb.sushisushi.user.service.UserService;
 
 @Service
 public class ReviewService {
@@ -22,7 +21,7 @@ public class ReviewService {
 	private ReviewRepository reviewRepository;
 	
 	@Autowired
-	private UserService userService;
+	private com.bsoupb.sushisushi.user.service.MemberService memberService;
 
 	public Review addReview(int userId, String contents, MultipartFile file, double point){
 		
@@ -48,7 +47,7 @@ public class ReviewService {
 		for(Review review:reviewList) {
 			
 			int reviewUserId = review.getUserId();
-			User user = userService.getUserById(reviewUserId);
+			User user = memberService.getUserById(reviewUserId);
 			
 			ReviewDetail reviewDetail = ReviewDetail.builder()
 													.reviewId(review.getId())

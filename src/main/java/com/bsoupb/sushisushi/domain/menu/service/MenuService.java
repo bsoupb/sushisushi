@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bsoupb.sushisushi.common.FileManager;
+import com.bsoupb.sushisushi.global.common.FileManager;
 import com.bsoupb.sushisushi.menu.domain.Menu;
 import com.bsoupb.sushisushi.menu.repository.MenuRepository;
 import com.bsoupb.sushisushi.order.service.OrderService;
